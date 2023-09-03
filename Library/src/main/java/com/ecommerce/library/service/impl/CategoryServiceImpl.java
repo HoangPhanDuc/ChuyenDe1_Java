@@ -14,38 +14,52 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    @Override
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
     @Override
     public Category save(Category category) {
-        return null;
+        Category categorySave = new Category(category.getName());
+        return categoryRepository.save(categorySave);
     }
 
     @Override
     public Category update(Category category) {
-        return null;
-    }
+        Category categoryUpdate = null;
+        try {
+            categoryUpdate = categoryRepository.findById(category.getId()).get();
+            categoryUpdate.setName(category.getName());
+            categoryUpdate.set_active(category.is_active());
+            categoryUpdate.set_deleted(category.is_deleted());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+//        Category categoryUpdate = categoryRepository.getById(category.getId());
 
-    @Override
-    public List<Category> findAllByActivatedTrue() {
-        return null;
-    }
-
-    @Override
-    public List<Category> findALl() {
-        return null;
+        return categoryRepository.save(categoryUpdate);
     }
 
     @Override
     public Optional<Category> findById(Long id) {
-        return Optional.empty();
+        return categoryRepository.findById(id);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        Category category = categoryRepository.getById(id);
+        category.set_active(false);
+        category.set_deleted(true);
+        categoryRepository.save(category);
     }
 
     @Override
     public void enableById(Long id) {
-
+        Category category = categoryRepository.getById(id);
+        category.set_active(true);
+        category.set_deleted(false);
+        categoryRepository.save(category);
     }
 }

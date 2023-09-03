@@ -16,14 +16,14 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
     private String name;
-    @Column(name = "is_activated")
-    private boolean activated;
+    @Column(name = "is_active")
+    private boolean is_active;
     @Column(name = "is_deleted")
-    private boolean deleted;
+    private boolean is_deleted;
 
     public Category(String name) {
         this.name = name;
-        this.activated = true;
-        this.deleted = false;
+        this.is_active = true;
+        this.is_deleted = false;
     }
 }

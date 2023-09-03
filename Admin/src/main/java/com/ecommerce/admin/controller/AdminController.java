@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public class AdminController {
 
-    @GetMapping("/categories")
-    public String categories(Model model) {
-        model.addAttribute("title", "Categories");
-        return "categories";
-    }
+//    @GetMapping("/categories")
+//    public String categories(Model model) {
+//        model.addAttribute("title", "Categories");
+//        return "categories";
+//    }
 }
