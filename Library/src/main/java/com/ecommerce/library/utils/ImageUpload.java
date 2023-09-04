@@ -1,5 +1,6 @@
 package com.ecommerce.library.utils;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,4 +25,15 @@ public class ImageUpload {
         }
         return isUpload;
     };
+
+    public boolean checkExisted(MultipartFile imageProduct) {
+        boolean isExisted = false;
+        try {
+            File file = new File(UPLOAD_FOLDER + "\\" + imageProduct.getOriginalFilename());
+            isExisted = file.exists();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return isExisted;
+    }
 }

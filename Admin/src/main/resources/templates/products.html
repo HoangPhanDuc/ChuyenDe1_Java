@@ -61,20 +61,25 @@
                             <td th:text = "${product.category.name}"></td>
                             <td th:text = "${product.costPrice}"></td>
                             <td th:text = "${product.currentQuantity}"></td>
-<!--                            <td>-->
-<!--                                <img class = "my-product-image" style="height: 40px; width: 40px;" alt=""-->
-<!--                                     th:src="'data:image/jpeg;base64,' + ${product.image}">-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{/update-product/{id}(id= ${product.id})}" class="btn btn-primary">-->
-<!--                                    Update-->
-<!--                                </a>-->
-<!--                            </td>-->
                             <td>
-<!--                                <a th:if="${product.deleted} == true" th:href="@{/enable-product/(id = ${product.id})}"-->
-<!--                                   class="btn btn-primary">Enable</a>-->
-<!--                                <a th:if="${product.deleted} == false" th:href="@{/delete-product/(id = ${product.id})}"-->
-<!--                                   class=" btn btn-danger">Delete</a>-->
+                                <img class = "my-product-image" style="height: 40px; width: 40px;" alt=""
+                                     th:src="'data:image/jpeg;base64,' + ${product.image}">
+                            </td>
+
+                            <td>
+                                <a th:href="@{/update-product/{id}(id= ${product.id})}" class="btn btn-primary">
+                                    Update
+                                </a>
+                            </td>
+                            <td>
+                                <a th:if="${product.deleted == true}"
+                                   th:href="@{/enable-product/{id} (id = ${product.id})}"
+                                   class="btn btn-secondary">Enable
+                                </a>
+                                <a th:if="${product.deleted == false}"
+                                   th:href="@{/deleted-product/{id} (id = ${product.id})}"
+                                   class="btn btn-danger">Delete
+                                </a>
                             </td>
                         </tr>
                         </tbody>

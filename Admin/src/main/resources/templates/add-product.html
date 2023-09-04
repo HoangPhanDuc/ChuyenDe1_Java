@@ -43,35 +43,34 @@
 
                                 <label class="col-md-4 control-label" for="product_categories">PRODUCT CATEGORY</label>
                                 <div class="col-md-4">
-                                    <!--                                    <select id="product_categories" th:field = "*{category}" name="product_categories" class="form-control">-->
-                                    <!--                                        <option th:value = "null">-SELECT-</option>-->
-                                    <!--                                        <option th:each = "category : ${categories}"-->
-                                    <!--                                                th:value = "${category.id}"-->
-                                    <!--                                                th:text = "${category.name}">-->
-                                    <!--                                        </option>-->
-                                    <!--                                    </select>-->
-
-                                    <select id="product_categories" name="product_categories" class="form-control">
+                                    <select id="product_categories" th:field="*{category}" name="product_categories"
+                                            class="form-control">
                                         <option th:value="null">-SELECT-</option>
                                         <option th:each="category : ${categories}"
                                                 th:value="${category.id}"
                                                 th:text="${category.name}">
                                         </option>
                                     </select>
+
+                                    <!--                                    <select id="product_categories" name="product_categories" class="form-control">-->
+                                    <!--                                        <option th:value="null">-SELECT-</option>-->
+                                    <!--                                        <option th:each="category : ${categories}"-->
+                                    <!--                                                th:value="${category.id}"-->
+                                    <!--                                                th:text="${category.name}">-->
+                                    <!--                                        </option>-->
+                                    <!--                                    </select>-->
                                 </div>
-                            </div>
 
-
-                            <div class="form-group">
                                 <label class="col-md-4 control-label" for="description">PRODUCT DESCRIPTION</label>
                                 <div class="col-md-4">
-                                    <input id="description" th:field = "*{description}" name="description" class="form-control input-md" required="" type="text">
-<!--                                    <input id="description" name="description" class="form-control input-md" required="" type="text">-->
+                                    <input id="description" th:field="*{description}" name="description"
+                                           class="form-control input-md" required="" type="text">
+                                    <!--                                    <input id="description" name="description" class="form-control input-md" required="" type="text">-->
 
                                 </div>
                             </div>
 
-                            <!-- Text input-->
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="available_quantity">AVAILABLE QUANTITY</label>
                                 <div class="col-md-4">
