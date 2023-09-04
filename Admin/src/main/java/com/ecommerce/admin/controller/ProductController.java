@@ -4,6 +4,10 @@ package com.ecommerce.admin.controller;
 //import com.ecommerce.library.model.Category;
 //import com.ecommerce.library.service.CategoryService;
 //import com.ecommerce.library.service.ProductService;
+import com.ecommerce.library.dto.ProductDto;
+import com.ecommerce.library.model.Category;
+import com.ecommerce.library.service.CategoryService;
+import com.ecommerce.library.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -21,23 +25,45 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
-//    private final ProductService productService;
-//
-//    private final CategoryService categoryService;
-//
-//
-//    @GetMapping("/products")
-//    public String products(Model model) {
-//        List<ProductDto> products = productService.allProduct();
-//        model.addAttribute("products", products);
-//        model.addAttribute("size", products.size());
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "redirect:/login";
-//        }
-//        return "products";
-//    }
-//
+
+    private final ProductService productService;
+
+    private final CategoryService categoryService;
+
+    @GetMapping("/products")
+    public String products(Model model) {
+        List<ProductDto> products = productService.findAll();
+        model.addAttribute("products", products);
+        model.addAttribute("size", products.size());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
+        return "products";
+    };
+
+    @GetMapping("/add-product")
+    public String addProduct(Model model) {
+        List<Category> categories = categoryService.findByActive();
+        model.addAttribute("categories", categories);
+        model.addAttribute("product", new ProductDto());
+        return "add-product";
+    };
+
+    @PostMapping("/save-product")
+    public String saveProduct (@ModelAttribute("productDto")ProductDto productDto,
+                               @RequestParam("imageProduct")MultipartFile imageProduct,
+                               RedirectAttributes attributes) {
+        try {
+            productService.save(imageProduct, productDto);
+            attributes.addFlashAttribute("success", "Added Product Successfully");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            attributes.addFlashAttribute("failed", "Something went wrong!!");
+        }
+        return "redirect:/products";
+    }
+
 //    @GetMapping("/products/{pageNo}")
 //    public String allProducts(@PathVariable("pageNo") int pageNo, Model model, Principal principal) {
 //        if (principal == null) {

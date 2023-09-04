@@ -28,28 +28,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        Category categoryUpdate = null;
-        try {
-            categoryUpdate = categoryRepository.findById(category.getId()).get();
-            categoryUpdate.setName(category.getName());
-            categoryUpdate.set_active(category.is_active());
-            categoryUpdate.set_deleted(category.is_deleted());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-//        Category categoryUpdate = categoryRepository.getById(category.getId());
-
+//        Category categoryUpdate = null;
+//        try {
+//            categoryUpdate = categoryRepository.findById(category.getId()).get();
+//            categoryUpdate.setName(category.getName());
+//            categoryUpdate.set_active(category.is_active());
+//            categoryUpdate.set_deleted(category.is_deleted());
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+        Category categoryUpdate = categoryRepository.getReferenceById(category.getId());
+        categoryUpdate.setName(category.getName());
         return categoryRepository.save(categoryUpdate);
     }
 
     @Override
-    public Optional<Category> findById(Long id) {
-        return categoryRepository.findById(id);
+    public Category getReferenceById(Long id) {
+        return(categoryRepository.getReferenceById(id));
     }
 
     @Override
     public void deleteById(Long id) {
-        Category category = categoryRepository.getById(id);
+        Category category = categoryRepository.getReferenceById(id);
         category.set_active(false);
         category.set_deleted(true);
         categoryRepository.save(category);
@@ -57,9 +57,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void enableById(Long id) {
-        Category category = categoryRepository.getById(id);
+        Category category = categoryRepository.getReferenceById(id);
         category.set_active(true);
         category.set_deleted(false);
         categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> findByActive() {
+        return categoryRepository.findAllByActive();
     }
 }

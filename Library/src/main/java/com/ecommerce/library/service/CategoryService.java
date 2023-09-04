@@ -12,10 +12,12 @@ public interface CategoryService {
 
     List<Category> findAll();
 
-    Optional<Category> findById(Long id);
+//    Optional<Category> findById(Long id);
+    Category getReferenceById(Long id);
 
     void deleteById(Long id);
 
     void enableById(Long id);
+    List<Category> findByActive();
 
 }
