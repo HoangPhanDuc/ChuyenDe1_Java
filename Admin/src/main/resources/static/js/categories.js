@@ -9,3 +9,5 @@ $('document').ready(function() {
         $('#editModal').modal();
     });
 });
+var edit = document.getElementById('idEdit');
+console.log(edit);

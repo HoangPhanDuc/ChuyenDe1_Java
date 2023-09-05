@@ -48,16 +48,17 @@
                     <td th:text="${category.name}"></td>
                     <td>
                         <a id="editButton"
-                           th:href="@{/getReferenceById/(id = ${category.id})}"
-                           class="btn btn-primary">Update</a>
+                           th:href="@{'/findById/' + ${category.id}}"
+                           class="btn btn-primary">Update
+                        </a>
                     </td>
                     <td>
-<!--                        <a th:if="${category.deleted} == true" th:href="@{/enable-category/(id = ${category.id})}"-->
-<!--                           class="btn btn-primary">Enable</a>-->
-<!--                        <a th:if="${category.deleted} == false" th:href="@{/delete-category/(id = ${category.id})}"-->
-<!--                           class=" btn btn-danger">Delete</a>-->
-                        <a th:href="@{/delete-category/(id= ${category.id})}" class="btn btn-danger">Delete</a>
-                        <a th:href="@{/enabel-category/(id= ${category.id})}" class="btn btn-secondary">Enable</a>
+                        <a class="btn btn-danger" th:href="@{/delete-category/(id= ${category.id})}"
+                           th:if="${category.is_active()} == true">Delete
+                        </a>
+                        <a class="btn btn-secondary" th:href="@{/enable-category/(id= ${category.id})}"
+                           th:if="${category.is_active()} == false">Enable
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -136,10 +137,7 @@
 <div th:replace="~{fragments::script}"></div>
 
 <script th:src="@{/js/categories.js}"></script>
-<script>
-    var edit = document.getElementById('idEdit');
-    console.log(edit);
-</script>
+
 </body>
 
 </html>

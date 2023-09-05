@@ -6,7 +6,6 @@ import com.ecommerce.library.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -60,12 +58,14 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
-    @RequestMapping(value = "/getReferenceById", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/findById/{id}")
     @ResponseBody
-//    public Optional<Category> findById(Long id) {
-//        return categoryService.findById(id);
-//    }
-    public Category getReferenceById (Long id) {
+    public Category findById(@PathVariable long id){
+        return categoryService.findById(id);
+    }
+
+    @RequestMapping(value = "/getReferenceById", method = {RequestMethod.PUT, RequestMethod.GET})
+    public Category getReferenceById (@PathVariable Long id) {
         return categoryService.getReferenceById(id);
     }
 
@@ -86,11 +86,6 @@ public class CategoryController {
 
         return "redirect:/categories";
     };
-//        public String update(Model model, @Param("id") long id) {
-//            Optional<Category> category = categoryService.findById(id);
-//            model.addAttribute("category", category);
-//            return "redirect:/categories";
-//        }
 
     @RequestMapping(value = "/delete-category", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
@@ -107,18 +102,6 @@ public class CategoryController {
         return "redirect:/categories";
     };
 
-//    @RequestMapping(value = "/enable-category", method = {RequestMethod.PUT, RequestMethod.GET})
-//    public String enabel(Long id, RedirectAttributes attributes) {
-//        try {
-//            categoryService.enableById(id);
-//            attributes.addFlashAttribute("success", "Enable Successfully");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            attributes.addFlashAttribute("failed", "Something went wrong!!");
-//        }
-//        return "redirect:/categories";
-//    }
-//
     @RequestMapping(value = "/enable-category", method = {RequestMethod.PUT, RequestMethod.GET})
     public String enable(Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -133,6 +116,4 @@ public class CategoryController {
         }
         return "redirect:/categories";
     }
-
-
 }
