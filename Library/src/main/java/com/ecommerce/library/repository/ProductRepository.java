@@ -31,4 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from products p inner join categories c on c.category_id = p.category_id where p.category_id = ?1", nativeQuery = true)
     List<Product> getRelatedProducts(Long categoryId);
 
+    @Query(value = "select p from Product p inner join Category c on c.id = p.category.id where c.id =?" +
+            "and p.is_deleted = false and p.is_active = true")
+    List<Product> getProductInCategory(Long categoryId);
 }
