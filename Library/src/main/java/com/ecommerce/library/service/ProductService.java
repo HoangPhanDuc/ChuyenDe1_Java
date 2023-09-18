@@ -32,4 +32,8 @@ public interface ProductService {
     List<Product> getRelatedProducts(Long categoryId);
 
     List<Product> getProductInCategory(Long categoryId);
+
+    List<Product> filterHighPrice();
+
+    List<Product> filterLowPrice();
 }

@@ -54,4 +54,15 @@ public class ProductController {
         model.addAttribute("categories", categoryDtoList);
         return "shop-detail";
     }
+
+    @GetMapping("/high-price")
+    public String filterHighPrice(Model model) {
+        List<Category> categories = categoryService.findByActive();
+        List<CategoryDto> categoryDtoList = categoryService.getCategoryAndProducts();
+        List<Product> products = productService.filterHighPrice();
+        model.addAttribute("products", products);
+        model.addAttribute("categoryDtoList", categoryDtoList);
+        model.addAttribute("categories", categories);
+        return "shop-detail";
+    }
 }

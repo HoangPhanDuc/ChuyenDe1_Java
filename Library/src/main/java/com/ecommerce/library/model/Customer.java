@@ -1,6 +1,7 @@
 package com.ecommerce.library.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,14 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private int id;
+
     private String firstName;
     private String lastName;
     private String userName;
 
     @Column(name = "phone")
     private String phoneNumber;
+
 
     private String password;
     private String address;
