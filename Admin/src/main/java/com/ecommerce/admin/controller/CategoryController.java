@@ -86,8 +86,9 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/delete-category/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String delete(Long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
+            System.out.println(id);
             categoryService.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
         } catch (Exception e2) {
