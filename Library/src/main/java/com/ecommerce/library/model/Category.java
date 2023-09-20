@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,9 +22,13 @@ public class Category {
     private boolean is_active;
     private boolean is_deleted;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
+
     public Category(String name) {
         this.name = name;
         this.is_active = true;
         this.is_deleted = false;
     }
+
 }

@@ -91,10 +91,10 @@ public class ProductController {
 //        System.out.println(categories);
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDto());
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "redirect:/login";
-//        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
         return "add-product";
     }
 
@@ -129,23 +129,24 @@ public class ProductController {
         return "redirect:/products";
     };
 
-    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String enableProduct(Long id, RedirectAttributes redirectAttributes) {
-        try {
-            productService.enableById(id);
-            redirectAttributes.addFlashAttribute("success", "Enable Product Successfully");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Something went wrong!!!");
-        }
-
-        return "redirect:/products";
-    };
+//    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+//    public String enableProduct(Long id, RedirectAttributes redirectAttributes) {
+//        try {
+//            productService.enableById(id);
+//            redirectAttributes.addFlashAttribute("success", "Enable Product Successfully");
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            redirectAttributes.addFlashAttribute("error", "Something went wrong!!!");
+//        }
+//
+//        return "redirect:/products";
+//    };
 
     @RequestMapping(value = "/deleted-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             productService.deleteById(id);
+            System.out.println(id);
             redirectAttributes.addFlashAttribute("success", "Deleted Product Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();

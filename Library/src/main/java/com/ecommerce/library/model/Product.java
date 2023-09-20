@@ -23,7 +23,8 @@ public class Product {
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
     private boolean is_active;
