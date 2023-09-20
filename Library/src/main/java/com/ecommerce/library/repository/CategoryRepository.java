@@ -10,10 +10,8 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query(value = "update Category set name = ?1 where id = ?2")
+    @Query("select c from Category c where c.is_active = true and  c.is_deleted = false ")
     List<Category> findAllByActive();
-
-//    (value = "delete Category set name = ?1 where id = ?2")
 
 
 }

@@ -1,6 +1,7 @@
 package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.ProductDto;
+import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Product;
 import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
@@ -24,23 +25,31 @@ public class ProductServiceImpl implements ProductService {
    private ImageUpload imageUpload;
 
     @Override
-    public List<ProductDto> findAll() {
-        List<ProductDto> productDtoList = new ArrayList<>();
+    public List<Product> findAll() {
+//        List<ProductDto> productDtoList = new ArrayList<>();
+//        List<Product> products = productRepository.findAll();
+//        for(Product product : products ) {
+//            ProductDto productDto = new ProductDto();
+//            productDto.setId(product.getId());
+//            productDto.setName(product.getName());
+//            productDto.setDescription(product.getDescription());
+//            productDto.setCostPrice(product.getCostPrice());
+//            productDto.setSalePrice(product.getSalePrice());
+//            productDto.setCurrentQuantity(product.getCurrentQuantity());
+//            productDto.setCategory(product.getCategory());
+//            productDto.setImage(product.getImage());
+//            productDto.setActive(product.is_active());
+//            productDto.setDeleted(product.is_deleted());
+//        }
+//        return productDtoList;
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<ProductDto> allProduct() {
         List<Product> products = productRepository.findAll();
-        for(Product product : products ) {
-            ProductDto productDto = new ProductDto();
-            productDto.setId(product.getId());
-            productDto.setName(product.getName());
-            productDto.setDescription(product.getDescription());
-            productDto.setCostPrice(product.getCostPrice());
-            productDto.setSalePrice(product.getSalePrice());
-            productDto.setCurrentQuantity(product.getCurrentQuantity());
-            productDto.setCategory(product.getCategory());
-            productDto.setImage(product.getImage());
-            productDto.setActive(product.is_active());
-            productDto.setDeleted(product.is_deleted());
-        }
-        return productDtoList;
+        List<ProductDto> productDtos = transferData(products);
+        return productDtos;
     }
 
     @Override
@@ -63,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(productDto.getCategory());
             product.setCostPrice(productDto.getCostPrice());
             product.setCurrentQuantity(productDto.getCurrentQuantity());
+            System.out.println(productDto.getCurrentQuantity());
             return productRepository.save(product);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -127,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.getReferenceById(id);
         product.set_deleted(true);
         product.set_active(false);
-        productRepository.save(product);
+        productRepository.delete(product);
     }
 
     @Override
@@ -137,4 +147,24 @@ public class ProductServiceImpl implements ProductService {
         product.set_deleted(false);
         productRepository.save(product);
     }
+
+    private List<ProductDto> transferData(List<Product> products) {
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (Product product : products) {
+            ProductDto productDto = new ProductDto();
+            productDto.setId(product.getId());
+            productDto.setName(product.getName());
+            productDto.setCurrentQuantity(product.getCurrentQuantity());
+            productDto.setCostPrice(product.getCostPrice());
+            productDto.setSalePrice(product.getSalePrice());
+            productDto.setDescription(product.getDescription());
+            productDto.setImage(product.getImage());
+            productDto.setCategory(product.getCategory());
+            productDto.setActive(product.is_active());
+            productDto.setDeleted(product.is_deleted());
+            productDtos.add(productDto);
+        }
+        return productDtos;
+    }
+
 }

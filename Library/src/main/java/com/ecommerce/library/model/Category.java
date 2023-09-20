@@ -16,7 +16,13 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
     private String name;
+
+    private boolean is_active;
+    private boolean is_deleted;
+
     public Category(String name) {
         this.name = name;
+        this.is_active = true;
+        this.is_deleted = false;
     }
 }

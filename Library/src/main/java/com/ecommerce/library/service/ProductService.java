@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<ProductDto> findAll();
+    List<Product> findAll();
+
+    List<ProductDto> allProduct();
 
     Product save(MultipartFile imageProduct, ProductDto productDto);
 
@@ -19,4 +21,5 @@ public interface ProductService {
 
     void deleteById(Long id);
     void enableById(Long id);
+
 }

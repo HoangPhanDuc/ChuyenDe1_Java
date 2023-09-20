@@ -30,9 +30,10 @@ public class ProductController {
 
     @GetMapping("/products")
     public String products(Model model) {
-        List<ProductDto> products = productService.findAll();
+        List<ProductDto> products = productService.allProduct();
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
+        System.out.println(products.size());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -87,12 +88,13 @@ public class ProductController {
     public String addProductPage(Model model) {
         model.addAttribute("title", "Add Product");
         List<Category> categories = categoryService.findByActive();
+//        System.out.println(categories);
         model.addAttribute("categories", categories);
-        model.addAttribute("productDto", new ProductDto());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-        }
+        model.addAttribute("product", new ProductDto());
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "redirect:/login";
+//        }
         return "add-product";
     }
 
@@ -140,8 +142,8 @@ public class ProductController {
         return "redirect:/products";
     };
 
-    @RequestMapping(value = "/delete-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String deleteProduct(Long id, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/deleted-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             productService.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted Product Successfully");
