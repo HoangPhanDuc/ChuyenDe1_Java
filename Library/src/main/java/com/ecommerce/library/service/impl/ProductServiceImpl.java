@@ -26,22 +26,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-//        List<ProductDto> productDtoList = new ArrayList<>();
-//        List<Product> products = productRepository.findAll();
-//        for(Product product : products ) {
-//            ProductDto productDto = new ProductDto();
-//            productDto.setId(product.getId());
-//            productDto.setName(product.getName());
-//            productDto.setDescription(product.getDescription());
-//            productDto.setCostPrice(product.getCostPrice());
-//            productDto.setSalePrice(product.getSalePrice());
-//            productDto.setCurrentQuantity(product.getCurrentQuantity());
-//            productDto.setCategory(product.getCategory());
-//            productDto.setImage(product.getImage());
-//            productDto.setActive(product.is_active());
-//            productDto.setDeleted(product.is_deleted());
-//        }
-//        return productDtoList;
         return productRepository.findAll();
     }
 
@@ -88,12 +72,13 @@ public class ProductServiceImpl implements ProductService {
             if(imageProduct == null) {
                 product.setImage(product.getImage());
             } else {
-                if(imageUpload.checkExisted(imageProduct) == false) {
+                if(imageUpload.checkExisted(imageProduct)) {
                     System.out.println("Upload Image Success");
                     imageUpload.uploadImage(imageProduct);
+                } else {
+                    System.out.println("Failed to upload - Image Existed!!!");
+                    product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
                 }
-                System.out.println("Failed to upload - Image Existed!!!");
-                product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
 
             product.setName(productDto.getName());

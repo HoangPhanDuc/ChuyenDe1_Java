@@ -22,8 +22,8 @@ public class Category {
     private boolean is_active;
     private boolean is_deleted;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+//    private List<Product> products;
 
     public Category(String name) {
         this.name = name;

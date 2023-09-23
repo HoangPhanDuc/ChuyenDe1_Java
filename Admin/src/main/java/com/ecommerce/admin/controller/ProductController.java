@@ -34,10 +34,10 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
         System.out.println(products.size());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-        }
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "redirect:/login";
+//        }
         return "products";
     };
 
@@ -92,9 +92,9 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDto());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-        }
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "redirect:/login";
+//        }
         return "add-product";
     }
 
@@ -107,8 +107,17 @@ public class ProductController {
         }
 
         model.addAttribute("title", "Update products");
+        System.out.println("product ID:" + productService.getReferenceById(id));
+        if(productService.getReferenceById(id) == null) {
+            System.out.println("NGu");
+        } else {
+            System.out.println("Ngon");
+        }
+
+        System.out.println(productService.getReferenceById(id));
         List<Category> categories = categoryService.findByActive();
         ProductDto productDto = productService.getReferenceById(id);
+
         model.addAttribute("categories", categories);
         model.addAttribute("productDto", productDto);
         return "update-product";
@@ -128,19 +137,6 @@ public class ProductController {
 
         return "redirect:/products";
     };
-
-//    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-//    public String enableProduct(Long id, RedirectAttributes redirectAttributes) {
-//        try {
-//            productService.enableById(id);
-//            redirectAttributes.addFlashAttribute("success", "Enable Product Successfully");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            redirectAttributes.addFlashAttribute("error", "Something went wrong!!!");
-//        }
-//
-//        return "redirect:/products";
-//    };
 
     @RequestMapping(value = "/deleted-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
