@@ -11,7 +11,7 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 public class ImageUpload {
-    private final String UPLOAD_FOLDER ="D:\\EbookApp\\Admin\\src\\main\\resources\\static\\img\\imageProduct";
+    private final String UPLOAD_FOLDER ="D:\\ChuyenDe1_Java\\Admin\\src\\main\\resources\\static\\img\\imageProduct";
 
     public boolean uploadImage(MultipartFile imageProduct) {
         boolean isUpload = false;

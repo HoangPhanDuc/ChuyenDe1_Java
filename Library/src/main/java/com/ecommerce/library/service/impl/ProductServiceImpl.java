@@ -21,12 +21,17 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-   @Autowired
-   private ImageUpload imageUpload;
+    @Autowired
+    private ImageUpload imageUpload;
 
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<ProductDto> products() {
+        return transferData(productRepository.getAllProduct());
     }
 
     @Override
@@ -123,14 +128,6 @@ public class ProductServiceImpl implements ProductService {
         product.set_deleted(true);
         product.set_active(false);
         productRepository.delete(product);
-    }
-
-    @Override
-    public void enableById(Long id) {
-        Product product = productRepository.getReferenceById(id);
-        product.set_active(true);
-        product.set_deleted(false);
-        productRepository.save(product);
     }
 
     private List<ProductDto> transferData(List<Product> products) {

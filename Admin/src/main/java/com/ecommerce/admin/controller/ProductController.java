@@ -34,10 +34,10 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
         System.out.println(products.size());
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "redirect:/login";
-//        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
         return "products";
     };
 
@@ -92,9 +92,9 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDto());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "redirect:/login";
-//        }
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
         return "add-product";
     }
 

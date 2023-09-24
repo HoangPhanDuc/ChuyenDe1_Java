@@ -1,6 +1,7 @@
 package com.ecommerce.customer.controller;
 
 //import com.ecommerce.library.dto.CategoryDto;
+import com.ecommerce.library.dto.ProductDto;
 import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Product;
 import com.ecommerce.library.repository.ProductRepository;
@@ -28,6 +29,9 @@ public class ProductController {
         model.addAttribute("page", "Products");
         model.addAttribute("title", "Menu");
         List<Category> categories = categoryService.findByActive();
+        List<ProductDto> products = productService.products();
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         return "index";
     }
 

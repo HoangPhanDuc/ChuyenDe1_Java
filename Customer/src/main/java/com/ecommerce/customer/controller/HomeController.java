@@ -34,6 +34,12 @@ public class HomeController {
         }
         model.addAttribute("title", "Home");
         model.addAttribute("page", "Home");
+
+        List<Category> categories = categoryService.findByActive();
+        List<ProductDto> products = productService.products();
+        System.out.println("Size of Product: " +productService.products().size());
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         return "home";
     }
 }

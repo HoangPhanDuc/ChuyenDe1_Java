@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "image"}))
 public class Product {
@@ -18,8 +17,8 @@ public class Product {
     private String name;
     private String description;
     private int currentQuantity;
-    private double costPrice;
-    private double salePrice;
+    private int costPrice;
+    private int salePrice;
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -29,4 +28,9 @@ public class Product {
     private Category category;
     private boolean is_active;
     private boolean is_deleted;
+
+    public Product() {
+        this.is_active = true;
+        this.is_deleted = false;
+    }
 }
