@@ -1,7 +1,6 @@
 package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.ProductDto;
-import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Product;
 import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
@@ -21,27 +20,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-   @Autowired
-   private ImageUpload imageUpload;
+    @Autowired
+    private ImageUpload imageUpload;
 
     @Override
     public List<Product> findAll() {
-//        List<ProductDto> productDtoList = new ArrayList<>();
-//        List<Product> products = productRepository.findAll();
-//        for(Product product : products ) {
-//            ProductDto productDto = new ProductDto();
-//            productDto.setId(product.getId());
-//            productDto.setName(product.getName());
-//            productDto.setDescription(product.getDescription());
-//            productDto.setCostPrice(product.getCostPrice());
-//            productDto.setSalePrice(product.getSalePrice());
-//            productDto.setCurrentQuantity(product.getCurrentQuantity());
-//            productDto.setCategory(product.getCategory());
-//            productDto.setImage(product.getImage());
-//            productDto.setActive(product.is_active());
-//            productDto.setDeleted(product.is_deleted());
-//        }
-//        return productDtoList;
         return productRepository.findAll();
     }
 
@@ -57,12 +40,12 @@ public class ProductServiceImpl implements ProductService {
         try {
             Product product = new Product();
 
-            if(imageProduct == null) {
+            if (imageProduct == null) {
                 product.setImage(null);
             } else {
-                if(imageUpload.uploadImage(imageProduct)) {
-                    System.out.println("Upload Success");
-                }
+//                if(imageUpload.uploadImage(imageProduct)) {
+//                    System.out.println("Upload Success");
+//                }
 
                 product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
@@ -85,10 +68,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.getReferenceById(productDto.getId());
         try {
 
-            if(imageProduct == null) {
+            if (imageProduct == null) {
                 product.setImage(product.getImage());
             } else {
-                if(imageUpload.checkExisted(imageProduct) == false) {
+                if (!imageUpload.checkExisted(imageProduct)) {
                     System.out.println("Upload Image Success");
                     imageUpload.uploadImage(imageProduct);
                 }
@@ -140,13 +123,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
-    @Override
-    public void enableById(Long id) {
-        Product product = productRepository.getReferenceById(id);
-        product.set_active(true);
-        product.set_deleted(false);
-        productRepository.save(product);
-    }
+//    @Override
+//    public void enableById(Long id) {
+//        Product product = productRepository.getReferenceById(id);
+//        product.set_active(true);
+//        product.set_deleted(false);
+//        productRepository.save(product);
+//    }
 
     private List<ProductDto> transferData(List<Product> products) {
         List<ProductDto> productDtos = new ArrayList<>();

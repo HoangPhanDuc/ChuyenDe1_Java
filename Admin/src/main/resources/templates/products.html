@@ -68,14 +68,14 @@
                         </td>
 
                         <td>
-                            <a th:href="@{/update-product/{id}(id= ${product.id})}" class="btn btn-primary">
+                            <a th:href="@{/update-product/{id}(id=${product.id})}" class="btn btn-primary">
                                 Update
                             </a>
                         </td>
 
                         <td>
                             <a
-                               th:href="@{'/deleted-product/' + ${product.id}}"
+                               th:href="@{/deleted-product/{id}(id=${product.id})}"
                                class="btn btn-danger">Delete
                             </a>
                         </td>

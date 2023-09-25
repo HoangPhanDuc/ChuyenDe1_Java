@@ -13,5 +13,4 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("select c from Category c where c.is_active = true and  c.is_deleted = false ")
     List<Category> findAllByActive();
 
-
 }

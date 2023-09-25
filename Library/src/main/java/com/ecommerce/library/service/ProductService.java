@@ -20,6 +20,6 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     void deleteById(Long id);
-    void enableById(Long id);
+//    void enableById(Long id);
 
 }
