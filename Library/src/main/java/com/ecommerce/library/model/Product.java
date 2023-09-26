@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.event.internal.OnUpdateVisitor;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +27,7 @@ public class Product {
     private String image;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
     private boolean is_active;
     private boolean is_deleted;
