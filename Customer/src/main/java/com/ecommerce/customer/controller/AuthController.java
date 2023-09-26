@@ -38,30 +38,33 @@ public class AuthController {
                                   RedirectAttributes redirectAttributes) {
         try {
             if(result.hasErrors()) {
-                model.addAttribute("customerDto", new CustomerDto());
+                model.addAttribute("customerDto", customerDto);
                 return "register";
             }
 
             Customer customer = customerService.findByUserName(customerDto.getUsername());
             if(customer != null) {
-                model.addAttribute("username", "Username already exists");
+                model.addAttribute("errorUsername", "Username already exists");
+                model.addAttribute("error", "Email already exists");
                 model.addAttribute("customerDto", customerDto);
                 return "register";
             }
             if(customerDto.getPassword().equals(customerDto.getConfirmPassword())) {
                 customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
+                customerDto.setConfirmPassword(passwordEncoder.encode(customerDto.getPassword()));
                 customerService.save(customerDto);
                 redirectAttributes.addFlashAttribute("success", "Register Successfully");
+                System.out.println("Customer Info: " + customerDto);
                 return "register";
-            }
-
-            else {
+            } else if(!customerDto.getPassword().equals(customerDto.getConfirmPassword())){
                 model.addAttribute("password", "Confirm password does not match");
-                model.addAttribute("customerDto", new CustomerDto());
+                System.out.println("Confirm password does not match");
+                model.addAttribute("customerDto", customerDto);
             }
         } catch (Exception ex) {
             model.addAttribute("error", "Something went wrong!!");
-            model.addAttribute("customerDto", new CustomerDto());
+            System.out.println("Something went wrong!!");
+            model.addAttribute("customerDto", customerDto);
             ex.printStackTrace();
         }
         return "register";

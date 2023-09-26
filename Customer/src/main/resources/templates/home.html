@@ -24,7 +24,7 @@
 <div class="product-wrapper" th:each="category : ${categories}">
     <div>
         <div class="tabs-header">
-            <div class="title-all text-center">
+            <div class="title-all">
                 <h1 th:text="${category.name}"></h1>
             </div>
         </div>
@@ -36,18 +36,20 @@
                         <li class="product-list-items">
                             <div class="inner-item">
                                 <div class="item-container">
-                                    <a class="item-link" th:href="@{/product-detail}">
+                                    <a class="item-link" th:href="@{'/product-detail/' + ${product.id}}">
                                         <img class="product-img" alt="" th:src="@{'data:image/jpeg;base64,' + ${product.image}}">
                                     </a>
                                 </div>
                                 <div>
-                                    <h2 class="product-name" th:text="${product.name}">
-                                        <a>
+                                    <a th:href="@{'/product-detail/' + ${product.id}}">
+                                        <h2 class="product-name" th:text="${product.name}">anv
+                                        </h2>
+                                    </a>
 
-                                        </a>
-                                    </h2>
                                     <div class="price-label">
-                                        <span class="current-price" th:text="${product.costPrice}">đ</span>
+                                        <span class="current-price" th:text="${product.costPrice}">
+                                            <span>đ</span>
+                                        </span>
                                         <div class="old-price" th:text="${product.salePrice}">đ</div>
                                     </div>
                                 </div>

@@ -33,7 +33,7 @@ public class ProductController {
         List<ProductDto> products = productService.allProduct();
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
-        System.out.println(products.size());
+        System.out.println("Product Size: "+products.size());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -88,7 +88,6 @@ public class ProductController {
     public String addProductPage(Model model) {
         model.addAttribute("title", "Add Product");
         List<Category> categories = categoryService.findByActive();
-//        System.out.println(categories);
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDto());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -113,8 +112,6 @@ public class ProductController {
         } else {
             System.out.println("Ngon");
         }
-
-        System.out.println(productService.getReferenceById(id));
         List<Category> categories = categoryService.findByActive();
         ProductDto productDto = productService.getReferenceById(id);
 

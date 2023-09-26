@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -17,13 +19,14 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
+
     private String name;
 
+    @Column(name = "is_active")
     private boolean is_active;
-    private boolean is_deleted;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-//    private List<Product> products;
+    @Column(name = "is_deleted")
+    private boolean is_deleted;
 
     public Category(String name) {
         this.name = name;

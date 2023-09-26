@@ -21,38 +21,75 @@
     </div>
     <!-- End Top Search -->
 
-    <section id="login-form">
-        <div class="noi-dung">
-            <div class="form">
-                <h2>Log In</h2>
+<!--    <section id="login-form">-->
+<!--        <div class="noi-dung">-->
+<!--            <div class="form">-->
+<!--                <h2>Log In</h2>-->
+<!--                <div th:if = "${param.error}" class="alert alert-danger text-center">-->
+<!--                    Invalid username or password-->
+<!--                </div>-->
+<!--                <div th:if = "${param.logout}" class="alert alert-success text-center">-->
+<!--                    You have been logged out!-->
+<!--                </div>-->
+<!--                <form th:action="@{/do-login}" method="post">-->
+<!--                    <div class="input-form">-->
+<!--                        <input type="text" placeholder="Name" name="username" required>-->
+<!--                    </div>-->
+<!--                    <div class="input-form">-->
+<!--                        <input type="password" placeholder="Password" name="password">-->
+<!--                    </div>-->
+<!--                    <div class="input-form">-->
+<!--                        <input type="submit" value="Log In">-->
+<!--                    </div>-->
+<!--                    <div class="input-form">-->
+<!--                        <p>Do You Already Have An Account ? <a th:href="@{/register}">Sign up now  </a></p>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--                <h3>Log In With Social Network</h3>-->
+<!--                <ul class="icon-dang-nhap">-->
+<!--                    <li><i class="fab fa-facebook-f"></i></i></li>-->
+<!--                    <li><i class="fab fa-google"></i></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form th:action="@{/do-login}" method="post">
+                <h1>Sign in</h1>
                 <div th:if = "${param.error}" class="alert alert-danger text-center">
                     Invalid username or password
                 </div>
                 <div th:if = "${param.logout}" class="alert alert-success text-center">
                     You have been logged out!
                 </div>
-                <form th:action="@{/do-login}" method="post">
-                    <div class="input-form">
-                        <input type="text" placeholder="Name" name="username" required>
-                    </div>
-                    <div class="input-form">
-                        <input type="password" placeholder="Password" name="password">
-                    </div>
-                    <div class="input-form">
-                        <input type="submit" value="Log In">
-                    </div>
-                    <div class="input-form">
-                        <p>Do You Already Have An Account ? <a th:href="@{/register}">Sign up now  </a></p>
-                    </div>
-                </form>
-                <h3>Log In With Social Network</h3>
-                <ul class="icon-dang-nhap">
-                    <li><i class="fab fa-facebook-f"></i></i></li>
-                    <li><i class="fab fa-google"></i></li>
-                </ul>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input class="form_input" type="email" name="email" placeholder="Email" />
+                <input class="form_input" type="password" name="password" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <button>Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost btn-over">
+                        <a th:href="@{/register}" style="color: #fff">
+                            Sign Up
+                        </a>
+                    </button>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Start copyright  -->
     <footer th:replace="~{fragments::footer}"></footer>

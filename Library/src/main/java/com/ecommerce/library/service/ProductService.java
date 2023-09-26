@@ -23,4 +23,6 @@ public interface ProductService {
 
     void deleteById(Long id);
 
+    List<ProductDto> findAllByCategory(String category);
+
 }

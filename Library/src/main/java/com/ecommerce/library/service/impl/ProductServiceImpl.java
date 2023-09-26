@@ -61,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(productDto.getCategory());
             product.setCostPrice(productDto.getCostPrice());
             product.setCurrentQuantity(productDto.getCurrentQuantity());
-            System.out.println(productDto.getCurrentQuantity());
+            System.out.println("Product Quantity: " + productDto.getCurrentQuantity());
             return productRepository.save(product);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -107,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setId(product.getId());
         productDto.setName(product.getName());
         productDto.setCategory(product.getCategory());
-        productDto.setCurrentQuantity(productDto.getCurrentQuantity());
+        productDto.setCurrentQuantity(product.getCurrentQuantity());
         productDto.setDescription(product.getDescription());
         productDto.setCostPrice(product.getCostPrice());
         productDto.setSalePrice(product.getSalePrice());
@@ -128,6 +128,11 @@ public class ProductServiceImpl implements ProductService {
         product.set_deleted(true);
         product.set_active(false);
         productRepository.delete(product);
+    }
+
+    @Override
+    public List<ProductDto> findAllByCategory(String category) {
+        return transferData(productRepository.findAllByCategory(category));
     }
 
     private List<ProductDto> transferData(List<Product> products) {

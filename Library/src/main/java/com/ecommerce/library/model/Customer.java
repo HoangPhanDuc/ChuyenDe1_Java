@@ -11,19 +11,17 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name ="customers", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "phone"}))
+@Table(name ="customers", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private int id;
 
-    private String firstName;
-    private String lastName;
     private String userName;
 
-    @Column(name = "phone")
-    private String phoneNumber;
+    @Column(name = "email")
+    private String email;
 
     private String password;
 
@@ -41,11 +39,9 @@ public class Customer {
     public String toString() {
         return "Customer {" +
                     "id=" + id +
-                    ", firstName='" + firstName + '\'' +
-                    ", lastName='" + lastName + '\'' +
                     ", username='" + userName + '\'' +
                     ", password='" + password + '\'' +
-                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumber='" + email + '\'' +
                     ", roles=" + roles +
                 '}';
     }

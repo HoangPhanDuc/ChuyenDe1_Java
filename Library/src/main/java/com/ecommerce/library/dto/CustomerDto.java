@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDto {
-    private String firstName;
-    private String lastName;
     private String username;
-    private String phoneNumber;
+    private String email;
 
     @Size(min = 7, message = "At least 7 characters")
     private String password;

@@ -27,14 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        Category categoryUpdate = null;
-        try {
-            categoryUpdate = categoryRepository.getReferenceById(category.getId());
-            categoryUpdate.setName(category.getName());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        assert categoryUpdate != null;
+        Category categoryUpdate = categoryRepository.getReferenceById(category.getId());
+        categoryUpdate.setName(category.getName());
         return categoryRepository.save(categoryUpdate);
     }
 
@@ -51,6 +45,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(Long id) {
         Category category = categoryRepository.getReferenceById(id);
+//        if(categoryRepository.getReferenceById(id) == null) {
+//            System.out.println("Ngu");
+//        } else {
+//            System.out.println("Category ID :" + category);
+//        }
+
+        category.set_active(false);
+        category.set_deleted(true);
         categoryRepository.delete(category);
     }
 
