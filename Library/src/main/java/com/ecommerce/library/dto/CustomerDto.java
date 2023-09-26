@@ -12,7 +12,6 @@ public class CustomerDto {
     private String username;
     private String email;
 
-    @Size(min = 7, message = "At least 7 characters")
     private String password;
 
     private String confirmPassword;

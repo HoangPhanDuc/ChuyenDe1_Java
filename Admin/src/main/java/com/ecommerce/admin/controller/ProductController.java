@@ -99,7 +99,6 @@ public class ProductController {
 
     @GetMapping("/update-product/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";

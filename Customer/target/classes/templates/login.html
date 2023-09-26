@@ -56,10 +56,10 @@
 
     <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form th:action="@{/do-login}" method="post">
+            <form th:action="@{/do-login-customer}" method="post" th:object="${customerDto}">
                 <h1>Sign in</h1>
                 <div th:if = "${param.error}" class="alert alert-danger text-center">
-                    Invalid username or password
+                    <p>Invalid email or password</p>
                 </div>
                 <div th:if = "${param.logout}" class="alert alert-success text-center">
                     You have been logged out!
@@ -73,7 +73,7 @@
                 <input class="form_input" type="email" name="email" placeholder="Email" />
                 <input class="form_input" type="password" name="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
+                <button type="submit">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">

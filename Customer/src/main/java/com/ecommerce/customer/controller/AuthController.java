@@ -5,6 +5,7 @@ import com.ecommerce.library.model.Customer;
 import com.ecommerce.library.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,30 @@ public class AuthController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
+        model.addAttribute("customerDto", new CustomerDto());
+        return "login";
+    }
+
+    @PostMapping("/do-login-customer")
+    public String progressLogin(@Valid @ModelAttribute("customerDto")CustomerDto customerDto,
+                                BindingResult result, Model model,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            if(result.hasErrors()) {
+                System.out.println("ngu");
+            }
+            if(customerDto.getPassword() == null) {
+                System.out.println("password null");
+            } else {
+                System.out.println("ngon " + customerDto);
+                redirectAttributes.addFlashAttribute("success", "Login SuccessFully");
+                return "login";
+            }
+        } catch (Exception ex) {
+            model.addAttribute("error", "Something went wrong!!");
+            System.out.println("Error Server");
+            System.out.println("Something went wrong!!");
+        }
         return "login";
     }
 
@@ -51,7 +76,7 @@ public class AuthController {
             }
             if(customerDto.getPassword().equals(customerDto.getConfirmPassword())) {
                 customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
-                customerDto.setConfirmPassword(passwordEncoder.encode(customerDto.getPassword()));
+//                customerDto.setConfirmPassword(passwordEncoder.encode(customerDto.getPassword()));
                 customerService.save(customerDto);
                 redirectAttributes.addFlashAttribute("success", "Register Successfully");
                 System.out.println("Customer Info: " + customerDto);
