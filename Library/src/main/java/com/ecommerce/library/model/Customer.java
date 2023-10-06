@@ -18,7 +18,7 @@ public class Customer {
     @Column(name = "customer_id")
     private int id;
 
-    private String userName;
+    private String username;
 
     @Column(name = "email")
     private String email;
@@ -39,7 +39,7 @@ public class Customer {
     public String toString() {
         return "Customer {" +
                     "id=" + id +
-                    ", username='" + userName + '\'' +
+                    ", username='" + username + '\'' +
                     ", password='" + password + '\'' +
                     ", phoneNumber='" + email + '\'' +
                     ", roles=" + roles +

@@ -31,13 +31,13 @@ public class HomeController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String home(Model model, Principal principal, HttpSession session) {
-        if(principal != null) {
-            session.setAttribute("username", principal.getName());
-        } else {
-            session.removeAttribute("username");
-        }
+
         model.addAttribute("title", "Home");
         model.addAttribute("page", "Home");
+
+        if (principal != null) {
+            session.setAttribute("username", principal.getName());
+        }
 
         List<Category> categories = categoryService.findByActive();
         List<ProductDto> products = productService.products();

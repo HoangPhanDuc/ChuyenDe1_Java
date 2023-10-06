@@ -25,7 +25,7 @@
     <div class="form-container sign-up-container">
         <form th:action="@{/do-register}" method="post" th:object="${customerDto}">
             <h1>Create Account</h1>
-            <div th:if="${success != null}">
+            <div th:if="${success}">
                 <p class="alert alert-success" th:text="${success}"></p>
             </div>
             <div th:if = "${password}" class="text-center alert-warning">

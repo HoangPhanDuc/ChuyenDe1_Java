@@ -38,17 +38,27 @@ public class AuthController {
             }
             if(customerDto.getPassword() == null) {
                 System.out.println("password null");
-            } else {
-                System.out.println("ngon " + customerDto);
-                redirectAttributes.addFlashAttribute("success", "Login SuccessFully");
+            }
+//            else if(customerDto.getEmail() == null) {
+//                System.out.println("Email null: " + customerDto.getUsername() + " " +
+//                         customerDto.getPassword());
+//                return "login";
+//            }
+            else if(customerDto.getUsername() == null) {
+                System.out.println("Email null: " + customerDto.getEmail() + " " +
+                        customerDto.getPassword());
                 return "login";
+            } else {
+                System.out.println("Good: " + customerDto.getUsername() + " " +customerDto.getPassword());
+                redirectAttributes.addFlashAttribute("success", "Login SuccessFully");
+                System.out.println("Login Successfully");
             }
         } catch (Exception ex) {
             model.addAttribute("error", "Something went wrong!!");
             System.out.println("Error Server");
             System.out.println("Something went wrong!!");
         }
-        return "login";
+        return "home";
     }
 
     @GetMapping("/register")
@@ -67,7 +77,7 @@ public class AuthController {
                 return "register";
             }
 
-            Customer customer = customerService.findByUserName(customerDto.getUsername());
+            Customer customer = customerService.findByUsername(customerDto.getUsername());
             if(customer != null) {
                 model.addAttribute("errorUsername", "Username already exists");
                 model.addAttribute("error", "Email already exists");
@@ -80,8 +90,7 @@ public class AuthController {
                 customerService.save(customerDto);
                 redirectAttributes.addFlashAttribute("success", "Register Successfully");
                 System.out.println("Customer Info: " + customerDto);
-                return "register";
-            } else if(!customerDto.getPassword().equals(customerDto.getConfirmPassword())){
+            } else {
                 model.addAttribute("password", "Confirm password does not match");
                 System.out.println("Confirm password does not match");
                 model.addAttribute("customerDto", customerDto);

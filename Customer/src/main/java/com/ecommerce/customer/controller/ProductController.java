@@ -20,14 +20,4 @@ public class ProductController {
 
     private final CategoryService categoryService;
 
-//    @GetMapping("/menu")
-//    public String  menu (Model model) {
-//        model.addAttribute("page", "Products");
-//        model.addAttribute("title", "Menu");
-//        List<Category> categories = categoryService.findByActive();
-//        List<ProductDto> products = productService.products();
-//        model.addAttribute("products", products);
-//        model.addAttribute("categories", categories);
-//        return "home";
-//    }
 }

@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer save(CustomerDto customerDto) {
         Customer customer = new Customer();
         customer.setPassword(customerDto.getPassword());
-        customer.setUserName(customerDto.getUsername());
+        customer.setUsername(customerDto.getUsername());
         customer.setEmail(customerDto.getEmail());
         customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
         return customerRepository.save(customer);
@@ -30,20 +30,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer changePass(CustomerDto customerDto) {
-        Customer customer = customerRepository.findByUserName(customerDto.getUsername());
+        Customer customer = customerRepository.findByUsername(customerDto.getUsername());
         customer.setPassword(customerDto.getPassword());
         return customerRepository.save(customer);
     }
 
     @Override
     public Customer update(CustomerDto dto) {
-        Customer customer = customerRepository.findByUserName(dto.getUsername());
+        Customer customer = customerRepository.findByUsername(dto.getUsername());
         customer.setEmail(dto.getEmail());
         return customerRepository.save(customer);
     }
 
     @Override
-    public Customer findByUserName(String username) {
-        return customerRepository.findByUserName(username);
+    public Customer findByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 }

@@ -8,7 +8,7 @@ public interface CustomerService {
 
     Customer update(CustomerDto customerDto);
 
-    Customer findByUserName(String username);
+    Customer findByUsername(String username);
 
     Customer changePass(CustomerDto customerDto);
 

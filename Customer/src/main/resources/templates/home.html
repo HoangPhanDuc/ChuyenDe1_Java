@@ -47,10 +47,9 @@
                                     </a>
 
                                     <div class="price-label">
-                                        <span class="current-price" th:text="${product.costPrice}">
-                                            <span>đ</span>
+                                        <span class="current-price" th:text="${product.costPrice} + ' đ'">
                                         </span>
-                                        <div class="old-price" th:text="${product.salePrice}">đ</div>
+                                        <div class="old-price" th:text="${product.salePrice} + ' đ'"></div>
                                     </div>
                                 </div>
                             </div>
