@@ -23,7 +23,7 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form th:action="@{/do-register}" method="post" th:object="${customerDto}">
+        <form class="form-auth" th:action="@{/do-register}" method="post" th:object="${customerDto}">
             <h1>Create Account</h1>
             <div th:if="${success}">
                 <p class="alert alert-success" th:text="${success}"></p>
@@ -51,7 +51,7 @@
             </div>
             <input class="form_input" type="password" required name="confirm" placeholder="Confirm Password"
                    th:field="*{confirmPassword}"/>
-            <button>Sign Up</button>
+            <button class="btn-auth">Sign Up</button>
         </form>
     </div>
     <div class="overlay-container" style="width: 80%">
@@ -59,11 +59,11 @@
             <div class="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
 <!--                <p>To keep connected with us please login with your personal info</p>-->
-                <button class="ghost btn-over" >
-                    <a th:href="@{/login}" style="color: #fff">
+                <a th:href="@{/login}" style="color: #fff" >
+                    <button class="ghost btn-over btn-auth" >
                         Sign In
-                    </a>
-                </button>
+                    </button>
+                </a>
             </div>
         </div>
     </div>

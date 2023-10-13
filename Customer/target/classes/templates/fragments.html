@@ -134,7 +134,10 @@
 					</span>
             </div>
             <div class="cart-box">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <a th:href="@{/cart}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="badge" th:text = "${session.totalItems == null} ? '0' : ${session.totalItems}"></span>
+                </a>
             </div>
         </div>
     </div>
@@ -198,12 +201,6 @@
     </div>
 </div>
 <!-- End Top Search -->
-
-<!-- Start Slider -->
-<div class="all-title-box" th:fragment="all-title-box">
-
-</div>
-<!-- End Slider -->
 
 <!-- Start Footer  -->
 <footer th:fragment="footer">

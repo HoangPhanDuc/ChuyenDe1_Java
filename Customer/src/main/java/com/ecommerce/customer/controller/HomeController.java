@@ -4,11 +4,13 @@ import com.ecommerce.library.dto.CustomerDto;
 import com.ecommerce.library.dto.ProductDto;
 import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Customer;
+import com.ecommerce.library.model.ShoppingCart;
 import com.ecommerce.library.service.CategoryService;
 import com.ecommerce.library.service.CustomerService;
 import com.ecommerce.library.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,13 +23,14 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    private final CustomerService customerService;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String home(Model model, Principal principal, HttpSession session) {
@@ -36,7 +39,12 @@ public class HomeController {
         model.addAttribute("page", "Home");
 
         if (principal != null) {
-            session.setAttribute("username", principal.getName());
+            Customer customer = customerService.findByUsername(principal.getName());
+            session.setAttribute("username", customer.getUsername());
+            ShoppingCart shoppingCart = customer.getCart();
+            if (shoppingCart != null) {
+                session.setAttribute("totalItems", shoppingCart.getTotalItems());
+            }
         }
 
         List<Category> categories = categoryService.findByActive();

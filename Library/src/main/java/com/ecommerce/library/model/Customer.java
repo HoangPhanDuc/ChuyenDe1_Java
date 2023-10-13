@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name ="customers", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class Customer {
@@ -35,6 +35,13 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Collection<Role> roles;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private ShoppingCart cart;
+
+    public Customer() {
+        this.cart = new ShoppingCart();
+    }
+
     @Override
     public String toString() {
         return "Customer {" +
@@ -43,6 +50,7 @@ public class Customer {
                     ", password='" + password + '\'' +
                     ", phoneNumber='" + email + '\'' +
                     ", roles=" + roles +
+                    ", cart=" + cart.getId() +
                 '}';
     }
 }
