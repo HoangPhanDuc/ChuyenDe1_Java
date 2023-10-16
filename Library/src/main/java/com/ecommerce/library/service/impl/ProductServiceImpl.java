@@ -135,6 +135,11 @@ public class ProductServiceImpl implements ProductService {
         return transferData(productRepository.findAllByCategory(category));
     }
 
+    @Override
+    public List<ProductDto> searchProducts(String keyword) {
+        return transferData(productRepository.searchProducts(keyword));
+    }
+
     private List<ProductDto> transferData(List<Product> products) {
         List<ProductDto> productDtos = new ArrayList<>();
         for (Product product : products) {

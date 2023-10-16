@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,14 +27,37 @@ public class OrderController {
     @GetMapping("/check-out")
     public String checkOut (Model model, Principal principal) {
         CustomerDto customer = customerService.getCustomer(principal.getName());
-        ShoppingCart cart = customerService.findByUsername(principal.getName()).getCart();
-        model.addAttribute("customer", customer);
-        model.addAttribute("title", "Checkout");
-        model.addAttribute("page", "Checkout");
-        model.addAttribute("shoppingCart", cart);
-        model.addAttribute("grandTotal", cart.getTotalItems());
-        return "checkout";
+//        if(customer.getEmail() == null) {
+//            model.addAttribute("info", "Thông tin này không thể để trốngThông tin này không thể để trống");
+//            model.addAttribute("customer", customer);
+//            model.addAttribute("title", "Profile");
+//            model.addAttribute("page", "Profile");
+//            return "checkout";
+//        } else {
+            ShoppingCart cart = customerService.findByUsername(principal.getName()).getCart();
+            model.addAttribute("customer", customer);
+            model.addAttribute("title", "Checkout");
+            model.addAttribute("page", "Checkout");
+            model.addAttribute("shoppingCart", cart);
+            model.addAttribute("grandTotal", cart.getTotalItems());
+            return "checkout";
+//        }
+
     };
+
+    @GetMapping("/order")
+    public String order(Model model, Principal principal) {
+        if(principal == null) {
+            return "redirect:/login";
+        }
+
+        Customer customer = customerService.findByUsername(principal.getName());
+        List<Order> orderList = customer.getOrders();
+        model.addAttribute("orders", orderList);
+        model.addAttribute("title", "Orders");
+        model.addAttribute("page", "Orders");
+        return "order";
+    }
 
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
     public String createOrder(

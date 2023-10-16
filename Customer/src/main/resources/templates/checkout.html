@@ -27,7 +27,7 @@
         <div class="row" style="background: #fff">
             <div class="checkout-block">
                 <div class="checkout-block-title">Địa chỉ giao hàng</div>
-                <div class="checkout-block-content">
+                <div class="checkout-block-content" th:object="${customer}">
                     <div class="checkout-block-address">
                         <div class="input-checkout">
                             <label> Họ và tên người nhận</label>
@@ -49,6 +49,7 @@
                                 <div class="input-group">
                                     <input type="email"
                                            required
+                                           th:field="*{email}"
                                            class="check-shipping-info"
                                            id="email"
                                            placeholder="Email"

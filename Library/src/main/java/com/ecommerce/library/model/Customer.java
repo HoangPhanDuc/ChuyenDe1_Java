@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,8 +39,12 @@ public class Customer {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private ShoppingCart cart;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
     public Customer() {
         this.cart = new ShoppingCart();
+        this.orders = new ArrayList<>();
     }
 
     @Override
@@ -51,6 +56,7 @@ public class Customer {
                     ", phoneNumber='" + email + '\'' +
                     ", roles=" + roles +
                     ", cart=" + cart.getId() +
+                    ", cart=" + orders.size() +
                 '}';
     }
 }

@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setAccept(false);
         order.setPaymentMethod("Cash");
+        order.setOrderStatus("Pending");
         order.setQuantity(shoppingCart.getTotalItems());
         List<OrderDetail> orderDetailList = new ArrayList<>();
         for(Cart cart : shoppingCart.getCartItems()) {
