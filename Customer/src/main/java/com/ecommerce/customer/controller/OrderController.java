@@ -45,19 +45,20 @@ public class OrderController {
 
     };
 
-    @GetMapping("/order")
-    public String order(Model model, Principal principal) {
-        if(principal == null) {
-            return "redirect:/login";
-        }
-
-        Customer customer = customerService.findByUsername(principal.getName());
-        List<Order> orderList = customer.getOrders();
-        model.addAttribute("orders", orderList);
-        model.addAttribute("title", "Orders");
-        model.addAttribute("page", "Orders");
-        return "order";
-    }
+//    @GetMapping("/order")
+//    public String order(Model model, Principal principal) {
+//        if(principal == null) {
+//            return "redirect:/login";
+//        }
+//
+//        Customer customer = customerService.findByUsername(principal.getName());
+//        List<Order> orderList = customer.getOrders();
+//        model.addAttribute("orders", orderList);
+//
+//        model.addAttribute("title", "Orders");
+//        model.addAttribute("page", "Orders");
+//        return "order";
+//    }
 
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
     public String createOrder(

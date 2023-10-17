@@ -24,7 +24,20 @@ public class ProductController {
 
     @GetMapping("/search-product")
     public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
-        List<CategoryDto> categoryDtoList;
+        try {
+            List<CategoryDto> categoryDtos = categoryService.getCategoriesAndSize();
+            List<ProductDto> productDtos = productService.searchProducts(keyword);
+            List<ProductDto> listView = productService.listViewProducts();
+
+            model.addAttribute("productViews", listView);
+            model.addAttribute("categories", categoryDtos);
+            model.addAttribute("title", "Search Product");
+            model.addAttribute("page", "Search Result");
+            model.addAttribute("products", productDtos);
+        } catch (Exception ex) {
+            System.out.println("Ngu" + ex);
+            ex.printStackTrace();
+        }
         return "products";
     }
 

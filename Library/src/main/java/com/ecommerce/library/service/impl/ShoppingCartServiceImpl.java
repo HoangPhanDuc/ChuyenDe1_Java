@@ -87,6 +87,69 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public ShoppingCart buyNow(ProductDto productDto, int quantity, String username) {
+        Customer customer = customerService.findByUsername(username);
+        ShoppingCart shoppingCart = customer.getCart();
+
+//        if(shoppingCart == null) {
+//            shoppingCart = new ShoppingCart();
+//        }
+
+        Set<Cart> cartList = shoppingCart.getCartItems();
+
+        Cart cartItem = find(cartList, productDto.getId());
+        Product product = transfer(productDto);
+
+        double unitPrice = productDto.getCostPrice();
+        double salePrice = productDto.getSalePrice();
+
+        int itemQuantity = 0;
+
+        if(cartList == null) {
+            cartList = new HashSet<>();
+            if(cartItem == null) {
+                cartItem = new Cart();
+                cartItem.setProduct(product);
+                cartItem.setCart(shoppingCart);
+                cartItem.setQuantity(quantity);
+                cartItem.setUnitPrice(unitPrice);
+                cartItem.setSalePrice(salePrice);
+                cartList.add(cartItem);
+                cartRepository.save(cartItem);
+            } else {
+                itemQuantity = cartItem.getQuantity() +quantity;
+                cartItem.setQuantity(itemQuantity);
+                cartRepository.save(cartItem);
+            }
+        } else {
+            if(cartItem == null) {
+                cartItem = new Cart();
+                cartItem.setProduct(product);
+                cartItem.setCart(shoppingCart);
+                cartItem.setQuantity(quantity);
+                cartItem.setUnitPrice(unitPrice);
+                cartItem.setSalePrice(salePrice);
+                cartList.add(cartItem);
+                cartRepository.save(cartItem);
+            } else {
+                itemQuantity = cartItem.getQuantity() +quantity;
+                cartItem.setQuantity(itemQuantity);
+                cartRepository.save(cartItem);
+            }
+        }
+        shoppingCart.setCartItems(cartList);
+
+        double totalPrice = totalPrice(shoppingCart.getCartItems());
+        int totalItem = totalItem(shoppingCart.getCartItems());
+
+        shoppingCart.setTotalPrice(totalPrice);
+        shoppingCart.setTotalItems(totalItem);
+        shoppingCart.setCustomer(customer);
+
+        return shoppingCartRepository.save(shoppingCart);
+    }
+
+    @Override
     public ShoppingCart removeItemFromCart(ProductDto productDto, String username) {
         Customer customer = customerService.findByUsername(username);
         ShoppingCart shoppingCart = customer.getCart();

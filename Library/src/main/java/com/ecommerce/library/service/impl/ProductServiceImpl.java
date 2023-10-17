@@ -136,6 +136,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> listViewProducts() {
+        return transferData(productRepository.listViewProduct());
+    }
+
+    @Override
     public List<ProductDto> searchProducts(String keyword) {
         return transferData(productRepository.searchProducts(keyword));
     }

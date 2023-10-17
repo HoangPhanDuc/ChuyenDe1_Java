@@ -115,16 +115,18 @@
 
             </div>
             <div class="right-header">
-                <div class="search-box">
-                    <div class="search-text">
-                        <input type="text" class="input-search" placeholder="Tìm kiếm sản phẩm....."/>
+                <form th:action="@{/search-product}" method="get">
+                    <div class="search-box">
+                        <div class="search-text">
+                            <input type="text" name="keyword" class="input-search" placeholder="Tìm kiếm sản phẩm....."/>
+                        </div>
+                        <div class="group-bnt">
+                            <button type="submit" class="search-btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="group-bnt">
-                        <button type="button" class="search-btn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="hot-line">
                 <i class="fa-solid fa-phone-volume"></i>

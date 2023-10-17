@@ -11,7 +11,7 @@
     transition: transform 80ms ease-in;
 }
 
-button:active {
+.btn-auth:active {
     transform: scale(0.95);
 }
 

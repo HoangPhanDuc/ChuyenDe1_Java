@@ -1,5 +1,6 @@
 package com.ecommerce.library.service.impl;
 
+import com.ecommerce.library.dto.CategoryDto;
 import com.ecommerce.library.model.Category;
 import com.ecommerce.library.repository.CategoryRepository;
 import com.ecommerce.library.service.CategoryService;
@@ -45,12 +46,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(Long id) {
         Category category = categoryRepository.getReferenceById(id);
-//        if(categoryRepository.getReferenceById(id) == null) {
-//            System.out.println("Ngu");
-//        } else {
-//            System.out.println("Category ID :" + category);
-//        }
-
         category.set_active(false);
         category.set_deleted(true);
         categoryRepository.delete(category);
@@ -59,5 +54,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findByActive() {
         return categoryRepository.findAllByActive();
+    }
+
+    @Override
+    public List<CategoryDto> getCategoriesAndSize() {
+        List<CategoryDto> categoryList = categoryRepository.getCategoriesAndSize();
+        return categoryList;
     }
 }

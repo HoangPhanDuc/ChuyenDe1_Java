@@ -66,6 +66,21 @@ public class CartController {
         return "redirect:" + request.getHeader("Referer");
     };
 
+    @RequestMapping(value = "/add-to-cart", method = RequestMethod.POST, params = "action=buy")
+    public String buyNow(@RequestParam("id") long productId,
+                         @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
+                         Model model,
+                         Principal principal,
+                         HttpSession session) {
+        ProductDto productDto = productService.getReferenceById(productId);
+        String username = principal.getName();
+        ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
+        session.setAttribute("totalItems", shoppingCart.getTotalItems());
+
+        model.addAttribute("shoppingCart", shoppingCart);
+        return "checkout";
+    }
+
     @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
     public String deleteItem(@RequestParam("id") long productId,
             Principal principal,

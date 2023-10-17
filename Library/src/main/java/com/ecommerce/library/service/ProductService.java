@@ -25,6 +25,8 @@ public interface ProductService {
 
     List<ProductDto> findAllByCategory(String category);
 
+    List<ProductDto> listViewProducts();
+
     List<ProductDto> searchProducts(String keyword);
 
 }
