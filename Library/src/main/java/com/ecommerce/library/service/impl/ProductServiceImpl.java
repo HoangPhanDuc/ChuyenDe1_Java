@@ -29,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> products() {
+        return transferData(productRepository.getAllProduct());
+    }
+
+    @Override
     public List<ProductDto> allProduct() {
         List<Product> products = productRepository.findAll();
         List<ProductDto> productDtos = transferData(products);
@@ -55,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCategory(productDto.getCategory());
             product.setCostPrice(productDto.getCostPrice());
             product.setCurrentQuantity(productDto.getCurrentQuantity());
-            System.out.println(productDto.getCurrentQuantity());
+            System.out.println("Product Quantity: " + productDto.getCurrentQuantity());
             return productRepository.save(product);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -71,12 +76,17 @@ public class ProductServiceImpl implements ProductService {
             if (imageProduct == null) {
                 product.setImage(product.getImage());
             } else {
+<<<<<<< HEAD
                 if (!imageUpload.checkExisted(imageProduct)) {
+=======
+                if(imageUpload.checkExisted(imageProduct)) {
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
                     System.out.println("Upload Image Success");
                     imageUpload.uploadImage(imageProduct);
+                } else {
+                    System.out.println("Failed to upload - Image Existed!!!");
+                    product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
                 }
-                System.out.println("Failed to upload - Image Existed!!!");
-                product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
 
             product.setName(productDto.getName());
@@ -124,6 +134,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+<<<<<<< HEAD
 //    @Override
 //    public void enableById(Long id) {
 //        Product product = productRepository.getReferenceById(id);
@@ -131,6 +142,22 @@ public class ProductServiceImpl implements ProductService {
 //        product.set_deleted(false);
 //        productRepository.save(product);
 //    }
+=======
+    @Override
+    public List<ProductDto> findAllByCategory(String category) {
+        return transferData(productRepository.findAllByCategory(category));
+    }
+
+    @Override
+    public List<ProductDto> listViewProducts() {
+        return transferData(productRepository.listViewProduct());
+    }
+
+    @Override
+    public List<ProductDto> searchProducts(String keyword) {
+        return transferData(productRepository.searchProducts(keyword));
+    }
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
     private List<ProductDto> transferData(List<Product> products) {
         List<ProductDto> productDtos = new ArrayList<>();

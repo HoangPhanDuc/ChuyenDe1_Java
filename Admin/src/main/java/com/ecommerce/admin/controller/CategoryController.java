@@ -47,6 +47,7 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("success", "Add successfully!");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
+            System.out.println("Duplicate Name");
             redirectAttributes.addFlashAttribute("error", "Duplicate name of category, please check again!");
         } catch (Exception e2) {
             e2.printStackTrace();
@@ -87,11 +88,20 @@ public class CategoryController {
     @RequestMapping(value = "/delete-category/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
+<<<<<<< HEAD
 //            System.out.println(id);
+=======
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
             categoryService.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+            System.out.println("Deleted Success");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            System.out.println("Don't got that????");
+            redirectAttributes.addFlashAttribute("error", "Duplicate name of category, please check again!");
         } catch (Exception e2) {
             e2.printStackTrace();
+            System.out.println("Server Error");
             redirectAttributes.addFlashAttribute("error", "Error server");
         }
         return "redirect:/categories";

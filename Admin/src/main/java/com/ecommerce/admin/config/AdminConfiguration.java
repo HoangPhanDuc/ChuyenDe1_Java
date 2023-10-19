@@ -41,7 +41,7 @@ public class AdminConfiguration {
 
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/*", "/static/**").permitAll()
+                .requestMatchers("/*", "/js/**", "/css/**", "/images/**", "/webfonts/**").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()

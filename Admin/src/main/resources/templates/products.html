@@ -50,9 +50,9 @@
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Sale Price</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Update</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -61,6 +61,7 @@
                         <th scope="row" th:text="${product.name}"></th>
                         <td th:text="${product.category.name}"></td>
                         <td th:text="${product.costPrice}"></td>
+                        <td th:text="${product.salePrice}"></td>
                         <td th:text="${product.currentQuantity}"></td>
                         <td>
                             <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
@@ -68,17 +69,34 @@
                         </td>
 
                         <td>
+<<<<<<< HEAD
                             <a th:href="@{/update-product/{id}(id=${product.id})}" class="btn btn-primary">
+=======
+                            <a th:href="@{'/update-product/' + ${product.id}}" class="btn btn-primary">
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
                                 Update
+                            </a>
+                            <a
+                                    th:href="@{'/deleted-product/' + ${product.id}}"
+                                    class="btn btn-danger">Delete
                             </a>
                         </td>
 
+<<<<<<< HEAD
                         <td>
                             <a
                                th:href="@{/deleted-product/{id}(id=${product.id})}"
                                class="btn btn-danger">Delete
                             </a>
                         </td>
+=======
+<!--                        <td>-->
+<!--                            <a-->
+<!--                               th:href="@{'/deleted-product/' + ${product.id}}"-->
+<!--                               class="btn btn-danger">Delete-->
+<!--                            </a>-->
+<!--                        </td>-->
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
                     </tr>
                     </tbody>

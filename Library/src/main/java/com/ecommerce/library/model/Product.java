@@ -6,10 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+<<<<<<< HEAD
+=======
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "image"}))
 public class Product {
@@ -17,18 +22,34 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long id;
+
     private String name;
+
     private String description;
+
     private int currentQuantity;
+
     private double costPrice;
+
     private double salePrice;
+
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
+
     private boolean is_active;
+
     private boolean is_deleted;
+    public Product() {
+        this.is_active = true;
+        this.is_deleted = false;
+    }
 }

@@ -33,7 +33,7 @@ public class ProductController {
         List<ProductDto> products = productService.allProduct();
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
-        System.out.println(products.size());
+        System.out.println("Product Size: "+products.size());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -88,7 +88,6 @@ public class ProductController {
     public String addProductPage(Model model) {
         model.addAttribute("title", "Add Product");
         List<Category> categories = categoryService.findByActive();
-//        System.out.println(categories);
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDto());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -99,16 +98,27 @@ public class ProductController {
     }
 
     @GetMapping("/update-product/{id}")
+<<<<<<< HEAD
     public String updateProductForm(@PathVariable Long id, Model model) {
 
+=======
+    public String updateProductForm(@PathVariable("id") Long id, Model model) {
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
         }
 
         model.addAttribute("title", "Update products");
+        System.out.println("product ID:" + productService.getReferenceById(id));
+        if(productService.getReferenceById(id) == null) {
+            System.out.println("NGu");
+        } else {
+            System.out.println("Ngon");
+        }
         List<Category> categories = categoryService.findByActive();
         ProductDto productDto = productService.getReferenceById(id);
+
         model.addAttribute("categories", categories);
         model.addAttribute("productDto", productDto);
         return "update-product";
@@ -130,6 +140,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
+<<<<<<< HEAD
     //    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
 //    public String enableProduct(Long id, RedirectAttributes redirectAttributes) {
 //        try {
@@ -143,6 +154,8 @@ public class ProductController {
 //        return "redirect:/products";
 //    };
 
+=======
+>>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
     @RequestMapping(value = "/deleted-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
