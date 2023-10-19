@@ -18,13 +18,10 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("select c from Category c where c.is_active = true and  c.is_deleted = false ")
     List<Category> findAllByActive();
 
-<<<<<<< HEAD
-=======
     @Query(value = "select new com.ecommerce.library.dto.CategoryDto(c.id, c.name, count(p.category.id))" +
             "from Category c left join Product p on c.id = p.category.id " +
             "where c.is_active = true and c.is_deleted = false " +
             "group by c.id")
     List<CategoryDto> getCategoriesAndSize();
 
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 }

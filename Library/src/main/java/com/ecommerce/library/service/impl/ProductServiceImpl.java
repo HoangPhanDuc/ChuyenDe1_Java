@@ -1,6 +1,7 @@
 package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.ProductDto;
+import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Product;
 import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
@@ -45,12 +46,12 @@ public class ProductServiceImpl implements ProductService {
         try {
             Product product = new Product();
 
-            if (imageProduct == null) {
+            if(imageProduct == null) {
                 product.setImage(null);
             } else {
-//                if(imageUpload.uploadImage(imageProduct)) {
-//                    System.out.println("Upload Success");
-//                }
+                if(imageUpload.uploadImage(imageProduct)) {
+                    System.out.println("Upload Success");
+                }
 
                 product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
@@ -73,14 +74,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.getReferenceById(productDto.getId());
         try {
 
-            if (imageProduct == null) {
+            if(imageProduct == null) {
                 product.setImage(product.getImage());
             } else {
-<<<<<<< HEAD
-                if (!imageUpload.checkExisted(imageProduct)) {
-=======
                 if(imageUpload.checkExisted(imageProduct)) {
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
                     System.out.println("Upload Image Success");
                     imageUpload.uploadImage(imageProduct);
                 } else {
@@ -117,7 +114,6 @@ public class ProductServiceImpl implements ProductService {
         productDto.setImage(product.getImage());
         productDto.setDeleted(product.is_deleted());
         productDto.setActive(product.is_active());
-        System.out.println();
         return productDto;
     }
 
@@ -134,15 +130,6 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
-<<<<<<< HEAD
-//    @Override
-//    public void enableById(Long id) {
-//        Product product = productRepository.getReferenceById(id);
-//        product.set_active(true);
-//        product.set_deleted(false);
-//        productRepository.save(product);
-//    }
-=======
     @Override
     public List<ProductDto> findAllByCategory(String category) {
         return transferData(productRepository.findAllByCategory(category));
@@ -157,7 +144,6 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> searchProducts(String keyword) {
         return transferData(productRepository.searchProducts(keyword));
     }
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
     private List<ProductDto> transferData(List<Product> products) {
         List<ProductDto> productDtos = new ArrayList<>();

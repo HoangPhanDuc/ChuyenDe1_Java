@@ -22,15 +22,11 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     void deleteById(Long id);
-<<<<<<< HEAD
-//    void enableById(Long id);
-=======
 
     List<ProductDto> findAllByCategory(String category);
 
     List<ProductDto> listViewProducts();
 
     List<ProductDto> searchProducts(String keyword);
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
 }

@@ -11,17 +11,13 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 public class ImageUpload {
-<<<<<<< HEAD
-    private final String UPLOAD_FOLDER ="D:\\JavaProject\\ChuyenDe1_Java\\Admin\\src\\main\\resources\\static\\img\\imageProduct";
-=======
     private final String UPLOAD_FOLDER ="D:\\ChuyenDe1_Java\\Admin\\src\\main\\resources\\static\\img\\imageProduct";
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
     public boolean uploadImage(MultipartFile imageProduct) {
         boolean isUpload = false;
         try {
             Files.copy(imageProduct.getInputStream(), Paths.get(UPLOAD_FOLDER + File.separator,
-                    imageProduct.getOriginalFilename()),
+                            imageProduct.getOriginalFilename()),
                     StandardCopyOption.REPLACE_EXISTING);
             isUpload = true;
         } catch (Exception ex) {

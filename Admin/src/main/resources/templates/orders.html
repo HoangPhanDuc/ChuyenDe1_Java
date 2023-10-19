@@ -58,12 +58,10 @@
                             <span></span>[(${order.paymentMethod})]</span>
                         </td>
                         <td>
-                            <a th:if="${order.accept} != false"  th:href="@{/cancel-order/(id = ${order.id})}"
-                               class="btn btn-primary">Cancel</a>
-                            <a th:if="${order.accept} == false" th:href="@{/accept-order/(id = ${order.id})}"
-                               class=" btn btn-secondary">Accept</a>
-                        </td>
-                        </a>
+                            <a th:if="${order.accept} == false" th:href="@{'/accept-order/' + ${order.id}}"
+                               class="btn btn-primary">Accept</a>
+                            <a th:if="${order.accept} != false" th:href="@{'/cancel-order/' + ${order.id}}"
+                               class="btn btn-danger">Cancel</a>
                         </td>
                     </tr>
                     </tbody>

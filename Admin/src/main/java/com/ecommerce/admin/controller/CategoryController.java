@@ -3,7 +3,6 @@ package com.ecommerce.admin.controller;
 import com.ecommerce.library.model.Category;
 import com.ecommerce.library.repository.CategoryRepository;
 import com.ecommerce.library.service.CategoryService;
-import com.ecommerce.library.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,8 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final ProductService productService;
     private final CategoryService categoryService;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
 
     @GetMapping("/categories")
@@ -88,10 +89,6 @@ public class CategoryController {
     @RequestMapping(value = "/delete-category/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
-<<<<<<< HEAD
-//            System.out.println(id);
-=======
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
             categoryService.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
             System.out.println("Deleted Success");

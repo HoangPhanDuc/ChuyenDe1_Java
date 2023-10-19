@@ -46,5 +46,27 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDetailList(orderDetailList);
         shoppingCartService.deletedCartById(shoppingCart.getId());
         return orderRepository.save(order);
-    };
+    }
+
+    @Override
+    public List<Order> findALlOrders() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public Order acceptOrder(Long id, Order order) {
+        order = orderRepository.getReferenceById(id);
+        order.setAccept(true);
+        System.out.println(order.isAccept());
+        System.out.println(id);
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order cancelOrder(Long id, Order order) {
+        order = orderRepository.getReferenceById(id);
+        order.setAccept(false);
+        return orderRepository.save(order);
+    }
+
 }

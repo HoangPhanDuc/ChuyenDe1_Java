@@ -6,12 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-<<<<<<< HEAD
-=======
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
 
 @Data
 @AllArgsConstructor
@@ -36,10 +33,7 @@ public class Product {
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
-<<<<<<< HEAD
-=======
 
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
