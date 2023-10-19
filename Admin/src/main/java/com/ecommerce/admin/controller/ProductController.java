@@ -39,12 +39,12 @@ public class ProductController {
             return "redirect:/login";
         }
         return "products";
-    }
+    };
 
     @PostMapping("/save-product")
-    public String saveProduct(@ModelAttribute("productDto") ProductDto productDto,
-                              @RequestParam("imageProduct") MultipartFile imageProduct,
-                              RedirectAttributes attributes) {
+    public String saveProduct (@ModelAttribute("productDto")ProductDto productDto,
+                               @RequestParam("imageProduct")MultipartFile imageProduct,
+                               RedirectAttributes attributes) {
         try {
             productService.save(imageProduct, productDto);
             attributes.addFlashAttribute("success", "Added Product Successfully");
@@ -98,12 +98,7 @@ public class ProductController {
     }
 
     @GetMapping("/update-product/{id}")
-<<<<<<< HEAD
-    public String updateProductForm(@PathVariable Long id, Model model) {
-
-=======
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";
@@ -122,7 +117,7 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("productDto", productDto);
         return "update-product";
-    }
+    };
 
     @PostMapping("/update-product/{id}")
     public String updateProduct(@ModelAttribute("productDto") ProductDto productDto,
@@ -130,7 +125,6 @@ public class ProductController {
                                 RedirectAttributes redirectAttributes) {
         try {
             productService.update(imageProduct, productDto);
-            System.out.println("check: " + productDto.getImage());
             redirectAttributes.addFlashAttribute("success", "Update Product Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -138,28 +132,13 @@ public class ProductController {
         }
 
         return "redirect:/products";
-    }
+    };
 
-<<<<<<< HEAD
-    //    @RequestMapping(value = "/enable-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-//    public String enableProduct(Long id, RedirectAttributes redirectAttributes) {
-//        try {
-//            productService.enableById(id);
-//            redirectAttributes.addFlashAttribute("success", "Enable Product Successfully");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            redirectAttributes.addFlashAttribute("error", "Something went wrong!!!");
-//        }
-//
-//        return "redirect:/products";
-//    };
-
-=======
->>>>>>> ea29b7d2e076553492471404a590f1dc07c94861
     @RequestMapping(value = "/deleted-product/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             productService.deleteById(id);
+            System.out.println(id);
             redirectAttributes.addFlashAttribute("success", "Deleted Product Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();
