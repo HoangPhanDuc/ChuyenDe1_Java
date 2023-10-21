@@ -1,5 +1,6 @@
 package com.ecommerce.library.model;
 
+import jakarta.mail.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

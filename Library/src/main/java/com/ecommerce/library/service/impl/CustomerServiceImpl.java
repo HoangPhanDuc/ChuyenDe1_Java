@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(customerDto.getPassword());
         customer.setUsername(customerDto.getUsername());
         customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getAddress());
         customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
         return customerRepository.save(customer);
     }

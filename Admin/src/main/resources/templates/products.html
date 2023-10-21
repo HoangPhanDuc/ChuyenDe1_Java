@@ -60,8 +60,8 @@
                     <tr th:each="product : ${products}">
                         <th scope="row" th:text="${product.name}"></th>
                         <td th:text="${product.category.name}"></td>
-                        <td th:text="${product.costPrice}"></td>
-                        <td th:text="${product.salePrice}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.costPrice, 0, 'POINT', 0, 'COMMA')}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'COMMA')}"></td>
                         <td th:text="${product.currentQuantity}"></td>
                         <td>
                             <img class="my-product-image" style="height: 40px; width: 40px;" alt=""

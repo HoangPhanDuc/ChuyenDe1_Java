@@ -62,8 +62,9 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String register(Model model, RedirectAttributes attributes) {
         model.addAttribute("customerDto", new CustomerDto());
+        attributes.addFlashAttribute("success", "Register successful!");
         return "register";
     }
 
