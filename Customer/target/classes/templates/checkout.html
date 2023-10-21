@@ -24,333 +24,235 @@
 <!-- Start Cart  -->
 <div class="cart-box-main">
     <div class="container">
-        <div class="row" style="background: #fff">
-            <div class="checkout-block">
-                <div class="checkout-block-title">Địa chỉ giao hàng</div>
-                <div class="checkout-block-content">
-                    <div class="checkout-block-address">
-                        <div class="input-checkout">
-                            <label> Họ và tên người nhận</label>
-                            <div class="input-item">
-                                <div class="input-group">
-                                    <input type="text"
-                                           required
-                                           class="check-shipping-info"
-                                           id="username"
-                                           placeholder="Họ và tên"
-                                    >
+        <form th:action="@{/add-order}" method="post" th:object="${customer}">
+            <div class="row" style="background: #fff">
+                    <div class="checkout-block">
+                        <div class="checkout-block-title">Địa chỉ giao hàng</div>
+                        <div class="checkout-block-content">
+                            <div class="checkout-block-address">
+                                <div class="input-checkout">
+                                    <label> Họ và tên người nhận</label>
+                                    <div class="input-item">
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   required
+                                                   th:field="*{username}"
+                                                   class="check-shipping-info"
+                                                   id="username"
+                                                   placeholder="Họ và tên"
+                                            >
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-<!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
-                        </div>
-                        <div class="input-checkout">
-                            <label>Email</label>
-                            <div class="input-item">
-                                <div class="input-group">
-                                    <input type="email"
-                                           required
-                                           class="check-shipping-info"
-                                           id="email"
-                                           placeholder="Email"
-                                    >
+                                <div class="input-checkout">
+                                    <label>Email</label>
+                                    <div class="input-item">
+                                        <div class="input-group">
+                                            <input type="email"
+                                                   required
+                                                   class="check-shipping-info"
+                                                   id="email"
+                                                   th:field="*{email}"
+                                                   placeholder="Email"
+                                            >
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-<!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
-                        </div>
-                        <div class="input-checkout">
-                            <label>Số điện thoại</label>
-                            <div class="input-item">
-                                <div class="input-group">
-                                    <input type="text"
-                                           required
-                                           class="check-shipping-info"
-                                           id="phone"
-                                           placeholder="Số điện thoại"
-                                    >
+                                <div class="input-checkout">
+                                    <label>Số điện thoại</label>
+                                    <div class="input-item">
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   required
+                                                   class="check-shipping-info"
+                                                   id="phone"
+                                                   th:field="*{phone}"
+                                                   placeholder="Số điện thoại"
+                                            >
+                                        </div>
+                                    </div>
+        <!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
                                 </div>
-                            </div>
-<!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
-                        </div>
 
-                        <div class="input-checkout">
-                            <label>Địa chỉ nhận hàng</label>
-                            <div class="input-item">
-                                <div class="input-group">
-                                    <input type="text"
-                                           required
-                                           class="check-shipping-info"
-                                           id="address"
-                                           placeholder="Địa chỉ người nhận"
-                                    >
+                                <div class="input-checkout">
+                                    <label>Địa chỉ nhận hàng</label>
+                                    <div class="input-item">
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   required
+                                                   class="check-shipping-info"
+                                                   id="address"
+                                                   th:field="*{address}"
+                                                   placeholder="Địa chỉ người nhận"
+                                            >
+                                        </div>
+                                    </div>
+        <!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
                                 </div>
                             </div>
-<!--                            <div class="input-alert">Thông tin này không thể để trống</div>-->
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="checkout-block">
-                <div class="checkout-block-title">Phương thức thanh toán</div>
-                <div class="checkout-block-content">
-                    <div class="checkout-block-radio">
-                        <ul class="checkout-block-radio-list">
-                            <li class="checkout-block-item">
-                                <div class="payment-cash">
-                                    <div class="icon-container">
-                                        <label class="payment-label">
-                                            <div class="payment-text">
-                                                <div>
-                                                    <img th:src="@{/images/ico_cashondelivery.svg}"
-                                                        style="background: no-repeat center center"
-                                                         width="40px"
-                                                         alt=""
-                                                    >
+                    <div class="checkout-block">
+                        <div class="checkout-block-title">Phương thức thanh toán</div>
+                        <div class="checkout-block-content">
+                            <div class="checkout-block-radio">
+                                <ul class="checkout-block-radio-list">
+                                    <li class="checkout-block-item">
+                                        <div class="payment-cash">
+                                            <div class="icon-container">
+                                                <label class="payment-label">
+                                                    <div class="payment-text">
+                                                        <div>
+                                                            <img th:src="@{/images/ico_cashondelivery.svg}"
+                                                                style="background: no-repeat center center"
+                                                                 width="40px"
+                                                                 alt=""
+                                                            >
+                                                        </div>
+                                                        <div class="payment-name">Thanh toán bằng tiền mặt</div>
+                                                        <input name="paymentMethod"
+                                                               type="radio" checked
+                                                               class="payment-option"
+                                                               required>
+                                                        <span class="radiomark"></span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="checkout-block-item">
+                                        <div class="payment-cash">
+                                            <div class="icon-container">
+                                                <label class="payment-label">
+                                                    <div class="payment-text">
+                                                        <div>
+                                                            <img th:src="@{/images/ico_visa.svg}"
+                                                                 style="background: no-repeat center center"
+                                                                 width="40px"
+                                                                 alt=""
+                                                            >
+                                                        </div>
+                                                        <div class="payment-name">Visa</div>
+                                                        <input id="" name="paymentMethod"
+                                                               type="radio"
+                                                               class="payment-option"
+                                                               required>
+                                                        <span class="radiomark"></span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="checkout-block-item">
+                                        <div class="payment-cash">
+                                            <div class="icon-container">
+                                                <label class="payment-label">
+                                                    <div class="payment-text">
+                                                        <div>
+                                                            <img th:src="@{/images/ico_momopay.svg}"
+                                                                 style="background: no-repeat center center"
+                                                                 width="40px"
+                                                                 alt=""
+                                                            >
+                                                        </div>
+                                                        <div class="payment-name">Ví Momo</div>
+                                                        <input name="paymentMethod"
+                                                               type="radio"
+                                                               class="payment-option"
+                                                               required>
+                                                        <span class="radiomark"></span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-block">
+                        <div class="checkout-block-title">Kiểm tra lại đơn hàng</div>
+                        <div class="checkout-block-content">
+                            <div class="checkout-products">
+                                <div class="checkout-product-item" th:each="item : ${shoppingCart.getCartItems()}">
+                                    <div class="checkout-product-img" >
+                                        <img th:src="'data:image/jepg;base64,' + ${item.product.image}" alt="image">
+                                    </div>
+                                    <div class="checkout-product-detail">
+                                        <div class="product-detail-name">
+                                            <div th:text="${item.product.name}"></div>
+                                        </div>
+                                        <div class="product-detail-price">
+                                            <div th:text="${item.product.costPrice}"></div>
+                                            <div
+                                                    class="checkout-original-price"
+                                                    th:text="${item.product.salePrice}"
+                                            >
+
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="product-detail-qty"
+                                                th:text="${item.quantity}"
+                                        >
+                                            <span>Số lượng: </span>
+                                        </div>
+                                        <div
+                                                class="product-detail-total"
+                                                th:text="${item.unitPrice * item.quantity}"
+                                        >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-confirm">
+                                    <div class="checkout-confirm-inner">
+                                        <div class="container">
+                                            <div class="checkout-total">
+                                                <div class="checkout-subtotal">
+                                                    <div>Thành tiền</div>
+                                                    <div th:text="${shoppingCart.totalPrice}"></div>
                                                 </div>
-                                                <div class="payment-name">Thanh toán bằng tiền mặt</div>
-                                                <input name="paymentMethod"
-                                                       type="radio" checked
-                                                       class="payment-option"
-                                                       required>
-                                                <span class="radiomark"></span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="checkout-block-item">
-                                <div class="payment-cash">
-                                    <div class="icon-container">
-                                        <label class="payment-label">
-                                            <div class="payment-text">
-                                                <div>
-                                                    <img th:src="@{/images/ico_visa.svg}"
-                                                         style="background: no-repeat center center"
-                                                         width="40px"
-                                                         alt=""
-                                                    >
+                                                <div class="checkout-shipping">
+                                                    <div>Phí vận Chuyển</div>
+                                                    <div>19.000 đ</div>
                                                 </div>
-                                                <div class="payment-name">Visa</div>
-                                                <input id="" name="paymentMethod"
-                                                       type="radio" checked
-                                                       class="payment-option"
-                                                       required>
-                                                <span class="radiomark"></span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="checkout-block-item">
-                                <div class="payment-cash">
-                                    <div class="icon-container">
-                                        <label class="payment-label">
-                                            <div class="payment-text">
-                                                <div>
-                                                    <img th:src="@{/images/ico_momopay.svg}"
-                                                         style="background: no-repeat center center"
-                                                         width="40px"
-                                                         alt=""
-                                                    >
+                                                <div class="checkout-total-grand">
+                                                    <div>Tổng số tiền</div>
+                                                    <div th:text="${shoppingCart.totalPrice + 19}"></div>
                                                 </div>
-                                                <div class="payment-name">Ví Momo</div>
-                                                <input name="paymentMethod"
-                                                       type="radio" checked
-                                                       class="payment-option"
-                                                       required>
-                                                <span class="radiomark"></span>
                                             </div>
-                                        </label>
+                                            <div class="checkout-bottom">
+                                                <div>
+                                                    <a th:href="@{/cart}">
+                                                        <span>
+                                                            <img th:src="@{/images/btn_back.svg}" alt="">
+                                                        </span>
+                                                        <span>Quay về giỏ hàng</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <div class="btn-box">
+                                                        <button type="submit"
+                                                                title="Xác nhận thanh toán"
+                                                                class="btn-confirm-ordered"
+                                                        >
+                                                            <span>Xác nhận thanh toán</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="checkout-block">
-                <div class="checkout-block-title">Kiểm tra lại đơn hàng</div>
-                <div class="checkout-block-content">
-                    <div class="checkout-products">
-                        <div class="checkout-product-item" th:each="item : ${shoppingCart.getCartItems()}">
-                            <div class="checkout-product-img" >
-                                <img th:src="'data:image/jepg;base64,' + ${item.product.image}" alt="image">
-                            </div>
-                            <div class="checkout-product-detail">
-                                <div class="product-detail-name">
-                                    <div th:text="${item.product.name}"></div>
-                                </div>
-                                <div class="product-detail-price">
-                                    <div th:text="${item.product.costPrice}"></div>
-                                    <div
-                                            class="checkout-original-price"
-                                            th:text="${item.product.salePrice}"
-                                    >
-
-                                    </div>
-                                </div>
-                                <div
-                                        class="product-detail-qty"
-                                        th:text="${item.quantity}"
-                                >
-                                    <span>Số lượng: </span>
-                                </div>
-                                <div
-                                        class="product-detail-total"
-                                        th:text="${item.unitPrice * item.quantity}"
-                                >
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="checkout-confirm">
-                        <form th:action="@{/add-order}" method="post">
-                            <div class="checkout-confirm-inner">
-                                <div class="container">
-                                    <div class="checkout-total">
-                                        <div class="checkout-subtotal">
-                                            <div>Thành tiền</div>
-                                            <div th:text="${shoppingCart.totalPrice}"></div>
-                                        </div>
-                                        <div class="checkout-shipping">
-                                            <div>Phí vận Chuyển</div>
-                                            <div>19.000 đ</div>
-                                        </div>
-                                        <div class="checkout-total-grand">
-                                            <div>Tổng số tiền</div>
-                                            <div th:text="${shoppingCart.totalPrice + 19}"></div>
-                                        </div>
-                                    </div>
-                                    <div class="checkout-bottom">
-                                        <div>
-                                            <a th:href="@{/cart}">
-                                                <span>
-                                                    <img th:src="@{/images/btn_back.svg}" alt="">
-                                                </span>
-                                                <span>Quay về giỏ hàng</span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <div class="btn-box">
-                                                <button type="submit"
-                                                        title="Xác nhận thanh toán"
-                                                        class="btn-confirm-ordered"
-                                                >
-                                                    <span>Xác nhận thanh toán</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
-
-<!--            <div class="col-sm-6 col-lg-6 mb-3">-->
-<!--                <div class="checkout-address">-->
-<!--                    <div class="title-left">-->
-<!--                        <h3>Billing address</h3>-->
-<!--                    </div>-->
-<!--                    <form class="needs-validation" >-->
-
-<!--                        <div class="mb-3">-->
-<!--                            <label for="username">Username</label>-->
-<!--                            <div class="input-group">-->
-<!--                                <input type="text" class="form-control" id="username"-->
-<!--                                       placeholder="" readonly>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3">-->
-<!--                            <label for="phone">Phone Number *</label>-->
-<!--                            <input type="text" class="form-control"  id="phone" placeholder=""-->
-<!--                                   readonly>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3">-->
-<!--                            <label for="address">Address *</label>-->
-<!--                            <input type="text" class="form-control"-->
-<!--                                   id="address" placeholder="" readonly>-->
-<!--                        </div>-->
-<!--                        <a th:href="@{/profile}" class="btn btn-primary"> Change information</a>-->
-<!--                        <hr class="mb-4">-->
-<!--                        <div class="title"><span>Payment Methods</span></div>-->
-<!--                        <div class="d-block my-3">-->
-<!--                            <div class="custom-control custom-radio">-->
-<!--                                <input id="debit" name="paymentMethod" type="radio" checked class="custom-control-input"-->
-<!--                                       required>-->
-<!--                                <label class="custom-control-label" for="debit">Cash</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <hr class="mb-1">-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-sm-6 col-lg-6 mb-3">-->
-<!--                <form >-->
-<!--                    <input type="hidden" name="id" >-->
-<!--                    <div class="col-md-12 col-lg-12">-->
-<!--                        <div class="odr-box">-->
-<!--                            <div class="title-left">-->
-<!--                                <h3>Shopping cart</h3>-->
-<!--                            </div>-->
-<!--                            <div class="rounded p-2 bg-light">-->
-<!--                                <div class="media mb-2 border-bottom" >-->
-<!--                                    <div class="media-body"><a href="product-detail.html"-->
-<!--                                                               ></a>-->
-<!--                                        <div class="small text-muted"><span-->
-<!--                                                class="mx-2"></span>-->
-<!--                                            <span class="mx-2"></span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-12 col-lg-12">-->
-<!--                        <div class="order-box">-->
-<!--                            <div class="title-left">-->
-<!--                                <h2><b>Your order</b></h2>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex">-->
-<!--                                <div class="font-weight-bold">Product</div>-->
-<!--                                <div class="ml-auto font-weight-bold">Total</div>-->
-<!--                            </div>-->
-<!--                            <hr class="my-1">-->
-<!--                            <div class="d-flex">-->
-<!--                                <h4>Sub Total</h4>-->
-<!--                                <div class="ml-auto font-weight-bold" ></div>-->
-<!--                            </div>-->
-<!--                            <hr class="my-1">-->
-<!--                            <div class="d-flex">-->
-<!--                                <h4>Tax</h4>-->
-<!--                                <div class="ml-auto font-weight-bold"> $2</div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex">-->
-<!--                                <h4>Shipping Cost</h4>-->
-<!--                                <div class="ml-auto font-weight-bold"> Free</div>-->
-<!--                            </div>-->
-<!--                            <hr>-->
-<!--                            <div class="d-flex gr-total">-->
-<!--                                <h5>Grand Total</h5>-->
-<!--                                <div class="ml-auto h5" ></div>-->
-<!--                            </div>-->
-<!--                            <hr>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-12 d-flex shopping-box">-->
-<!--                        <button type="submit" class="ml-auto btn hvr-hover">Place Order</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-        </div>
+        </form>
     </div>
 </div>
 <!-- End Cart -->
-
-
-<!-- Start Footer  -->
-<footer th:replace="~{fragments::footer}">
-</footer>
+<footer th:fragment="~{footer}"></footer>
 
 <div th:replace="~{fragments::script}"></div>
 </body>

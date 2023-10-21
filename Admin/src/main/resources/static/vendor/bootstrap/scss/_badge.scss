@@ -11,6 +11,12 @@
   line-height: 1;
   text-align: center;
   white-space: nowrap;
+  position: absolute;
+  top: 8%;
+  right: -3%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  color: #f15c22;
   vertical-align: baseline;
   @include border-radius($badge-border-radius);
   @include transition($badge-transition);
@@ -28,10 +34,7 @@
 }
 
 // Quick fix for badges in buttons
-.btn .badge {
-  position: relative;
-  top: -1px;
-}
+
 
 // Pill badges
 //

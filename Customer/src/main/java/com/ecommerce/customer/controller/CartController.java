@@ -36,7 +36,9 @@ public class CartController {
                 System.out.println("Cart Null");
                 model.addAttribute("check", true);
             }
-            if(cart != null) {
+            if(cart != null ) {
+                System.out.println("Cart Size " + cart.getCartItems().size());
+                System.out.println("Cart Info " + cart);
                 model.addAttribute("grandTotal", cart.getTotalPrice());
             }
 

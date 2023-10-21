@@ -26,6 +26,10 @@ public class Customer {
 
     private String password;
 
+    private String address;
+
+    private String phoneNumber;
+
     @Lob
     @Column(name = "image", columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -53,7 +57,9 @@ public class Customer {
                     "id=" + id +
                     ", username='" + username + '\'' +
                     ", password='" + password + '\'' +
-                    ", phoneNumber='" + email + '\'' +
+                    ", address'" + address + '\'' +
+                    ", phoneNumber'" + phoneNumber + '\'' +
+                    ", email'" + email + '\'' +
                     ", roles=" + roles +
                     ", cart=" + cart.getId() +
                     ", cart=" + orders.size() +

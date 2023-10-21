@@ -15,5 +15,10 @@ public class CustomerDto {
 
     private String password;
 
+    @Size(max = 10, message = "Phone number must have been 10 numbers")
+    private String phone;
+
     private String confirmPassword;
+
+    private String address;
 }
