@@ -1,6 +1,5 @@
 package com.ecommerce.library.model;
 
-import jakarta.mail.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +26,10 @@ public class Customer {
 
     private String password;
 
+    private String address;
+
+    private String phoneNumber;
+
     @Lob
     @Column(name = "image", columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -51,13 +54,15 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer {" +
-                    "id=" + id +
-                    ", username='" + username + '\'' +
-                    ", password='" + password + '\'' +
-                    ", phoneNumber='" + email + '\'' +
-                    ", roles=" + roles +
-                    ", cart=" + cart.getId() +
-                    ", cart=" + orders.size() +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address'" + address + '\'' +
+                ", phoneNumber'" + phoneNumber + '\'' +
+                ", email'" + email + '\'' +
+                ", roles=" + roles +
+                ", cart=" + cart.getId() +
+                ", cart=" + orders.size() +
                 '}';
     }
 }

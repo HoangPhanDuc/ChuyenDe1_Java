@@ -53,7 +53,8 @@ input[type=radio], input[type=checkbox] {
     border: 0;
 }
 
-.cart-box-main{
+.cart-box-main {
+    min-height: 100vh;
     margin-top: 5px;
     padding: 15px 0 10px 0;
 }
@@ -162,6 +163,25 @@ input {
     border: solid 1px #ccc;
     padding: 0 11px;
 }
+
+.cart-badge {
+    position: absolute;
+    top: 8%;
+    right: -3%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    color: #f15c22;
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 8px;
+}
+
 input:disabled {
     cursor: not-allowed;
     border: solid 1px #eee;
@@ -925,9 +945,7 @@ a {
  ul.cart-list > li.total > .btn:hover{
      color: #ffffff;
 }
- .cart-box{
-     margin-top: 40px;
-}
+
  .main-header.fixed-menu {
      position: fixed;
      visibility: hidden;
@@ -2271,9 +2289,6 @@ a {
      -ms-animation: bounceY 0.9s linear;
      animation: bounceY 0.9s linear;
 }
- .cart-box-main{
-     padding: 70px 0px;
-}
  .table-main table thead{
      background: #b0b435;
      color: #ffffff;
@@ -2606,7 +2621,6 @@ a {
  .contact-info-left{
      padding: 20px;
      background: url(../images/contact-bg.jpg) no-repeat center;
-	 
      width: 400px;
      height: 350px;
 }
@@ -3150,6 +3164,7 @@ btn {
 }
 
 .cart-box {
+    position: relative;
     margin-left: 20px;
     margin-top: 10px;
     padding-left: 27px;
@@ -3377,6 +3392,11 @@ btn {
     font-size: 14px;
     color: #888888;
     text-decoration: line-through;
+}
+
+.old-price .price {
+    padding: 0;
+    font-size: 0.9rem !important;
 }
 
 /* End Product */
@@ -3644,6 +3664,24 @@ btn {
     padding-bottom: 10px;
 }
 
+.cart-ui-content::after {
+    display: block;
+    content: ".";
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.cart-ui-content > div:nth-child(2) {
+    flex-basis: 30%;
+}
+
+.cart-ui-content > div:nth-child(3) {
+    flex-basis: 36%;
+}
+
 .cart-wrapper-emp {
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -3853,13 +3891,14 @@ btn {
     border-radius: 8px;
     width: 30%;
     float: right;
-    margin-right: 12px;
+    margin-top: 12px;
 }
 
 .cash-total {
     display: flex;
     font-size: 1.2em;
     padding: 10px 16px;
+    justify-content: space-between;
 }
 
 .total-left {
@@ -4277,8 +4316,14 @@ button.btn-checkout span {
 /* end checkout css */
 
 /* start footer css */
+.footer-page {
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
 .footer-page .container .container-inner-footer {
-    padding: 40px 0 25px;
+    padding: 40px 15px 25px;
+    border-radius: 8px;
 }
 
 .footer-page-left-item {
@@ -4353,6 +4398,7 @@ button.btn-checkout span {
 
 .footer-static-content ul li .footer-license:hover {
     background-position: 0px -40px;
+    cursor: pointer;
     padding-left: 25px;
     color: #ea7696;
 }
@@ -4366,11 +4412,6 @@ button.btn-checkout span {
 
 .search-page .container .container-inner {
     padding: 10px 0;
-}
-
-.search-page .search-left {
-    margin-right: 4px;
-    padding-right: 4px;
 }
 
 .search-left .search-left-nav .block-category {
@@ -4427,13 +4468,8 @@ button.btn-checkout span {
     position: relative;
 }
 
-.search-page .search-content {
-    margin-left: 4px;
-    padding-left: 4px;
-}
-
 .search-content .search-result {
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 .search-content .search-result .category-products {
@@ -4452,6 +4488,10 @@ button.btn-checkout span {
 .category-products ul.product-grid > li {
     position: relative;
     font-size: 0.8em;
+}
+
+.category-products ul.product-grid li:hover {
+    box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.1);
 }
 
 .category-products .item-inner .product-search-inner {
@@ -4478,7 +4518,8 @@ button.btn-checkout span {
 }
 
 .item-inner .product-search-inner .product-search-name {
-    font-size: 16px;
+    padding: 0;
+    font-size: 18px;
     font-family: sans-serif;
     line-height: 17px;
     overflow: hidden;
@@ -4517,7 +4558,7 @@ button.btn-checkout span {
 
 .product-grid .special-price .price {
     line-height: 1.65rem;
-    font-size: 1.65rem !important;
+    font-size: 1.35rem !important;
     color: #C92127;
     font-weight: 600;
     min-height: 25px;

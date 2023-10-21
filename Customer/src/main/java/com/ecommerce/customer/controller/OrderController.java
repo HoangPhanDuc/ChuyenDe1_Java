@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,13 +28,7 @@ public class OrderController {
     @GetMapping("/check-out")
     public String checkOut (Model model, Principal principal) {
         CustomerDto customer = customerService.getCustomer(principal.getName());
-//        if(customer.getEmail() == null) {
-//            model.addAttribute("info", "Thông tin này không thể để trốngThông tin này không thể để trống");
-//            model.addAttribute("customer", customer);
-//            model.addAttribute("title", "Profile");
-//            model.addAttribute("page", "Profile");
-//            return "checkout";
-//        } else {
+            System.out.println("customer info " + customer);
             ShoppingCart cart = customerService.findByUsername(principal.getName()).getCart();
             model.addAttribute("customer", customer);
             model.addAttribute("title", "Checkout");
@@ -41,33 +36,22 @@ public class OrderController {
             model.addAttribute("shoppingCart", cart);
             model.addAttribute("grandTotal", cart.getTotalItems());
             return "checkout";
-//        }
-
     };
-
-//    @GetMapping("/order")
-//    public String order(Model model, Principal principal) {
-//        if(principal == null) {
-//            return "redirect:/login";
-//        }
-//
-//        Customer customer = customerService.findByUsername(principal.getName());
-//        List<Order> orderList = customer.getOrders();
-//        model.addAttribute("orders", orderList);
-//
-//        model.addAttribute("title", "Orders");
-//        model.addAttribute("page", "Orders");
-//        return "order";
-//    }
 
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
     public String createOrder(
             Principal principal,
             Model model,
-            HttpSession session) {
+            HttpSession session,
+            @RequestParam("address") String address,
+            @RequestParam("phone") String phone) {
         Customer customer = customerService.findByUsername(principal.getName());
+        CustomerDto customerDto = customerService.getCustomer(principal.getName());
+        customerDto.setAddress(address);
+        customerDto.setPhone(phone);
         ShoppingCart cart = customer.getCart();
         Order order = orderService.save(cart);
+        customerService.update(customerDto);
         session.removeAttribute("totalItems");
         model.addAttribute("order", order);
         model.addAttribute("title", "Order Detail");

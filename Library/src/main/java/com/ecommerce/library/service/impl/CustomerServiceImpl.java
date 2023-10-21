@@ -24,6 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(customerDto.getPassword());
         customer.setUsername(customerDto.getUsername());
         customer.setEmail(customerDto.getEmail());
+        customer.setPhoneNumber(customerDto.getPhone());
+        customer.setAddress(customerDto.getAddress());
         customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
         return customerRepository.save(customer);
     }
@@ -37,13 +39,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto getCustomer(String username) {
-        return null;
+        CustomerDto customerDto = new CustomerDto();
+        Customer customer = customerRepository.findByUsername(username);
+        customerDto.setUsername(customer.getUsername());
+        customerDto.setEmail(customer.getEmail());
+        customerDto.setPassword(customer.getPassword());
+        customerDto.setAddress(customer.getAddress());
+        customerDto.setPhone(customer.getPhoneNumber());
+        return customerDto;
     }
 
     @Override
     public Customer update(CustomerDto dto) {
         Customer customer = customerRepository.findByUsername(dto.getUsername());
-        customer.setEmail(dto.getEmail());
+        customer.setAddress(dto.getAddress());
+        customer.setPhoneNumber(dto.getPhone());
         return customerRepository.save(customer);
     }
 
