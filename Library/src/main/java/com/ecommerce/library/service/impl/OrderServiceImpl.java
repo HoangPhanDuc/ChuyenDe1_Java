@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findALlOrders() {
+    public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
 

@@ -25,7 +25,7 @@ public class OrderController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            List<Order> orderList = orderService.findALlOrders();
+            List<Order> orderList = orderService.findAllOrders();
             model.addAttribute("orders", orderList);
             return "orders";
         }
