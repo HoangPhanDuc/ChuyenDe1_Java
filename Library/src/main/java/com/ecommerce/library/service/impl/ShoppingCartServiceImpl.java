@@ -1,14 +1,12 @@
 package com.ecommerce.library.service.impl;
 
 import com.ecommerce.library.dto.ProductDto;
-import com.ecommerce.library.model.Cart;
-import com.ecommerce.library.model.Customer;
-import com.ecommerce.library.model.Product;
-import com.ecommerce.library.model.ShoppingCart;
+import com.ecommerce.library.model.*;
 import com.ecommerce.library.repository.CartRepository;
 import com.ecommerce.library.repository.ShoppingCartRepository;
 import com.ecommerce.library.service.CustomerService;
 import com.ecommerce.library.service.ShoppingCartService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Customer customer = customerService.findByUsername(username);
         ShoppingCart shoppingCart = customer.getCart();
 
-        if(shoppingCart == null) {
+        if (shoppingCart == null) {
             shoppingCart = new ShoppingCart();
         }
 
@@ -42,9 +40,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         int itemQuantity = 0;
 
-        if(cartList == null) {
+        if (cartList == null) {
             cartList = new HashSet<>();
-            if(cartItem == null) {
+            if (cartItem == null) {
                 cartItem = new Cart();
                 cartItem.setProduct(product);
                 cartItem.setCart(shoppingCart);
@@ -54,12 +52,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartList.add(cartItem);
                 cartRepository.save(cartItem);
             } else {
-                itemQuantity = cartItem.getQuantity() +quantity;
+                itemQuantity = cartItem.getQuantity() + quantity;
                 cartItem.setQuantity(itemQuantity);
                 cartRepository.save(cartItem);
             }
         } else {
-            if(cartItem == null) {
+            if (cartItem == null) {
                 cartItem = new Cart();
                 cartItem.setProduct(product);
                 cartItem.setCart(shoppingCart);
@@ -69,7 +67,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartList.add(cartItem);
                 cartRepository.save(cartItem);
             } else {
-                itemQuantity = cartItem.getQuantity() +quantity;
+                itemQuantity = cartItem.getQuantity() + quantity;
                 cartItem.setQuantity(itemQuantity);
                 cartRepository.save(cartItem);
             }
@@ -105,30 +103,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public void deletedCartById(Long id) {
-        ShoppingCart shoppingCart = shoppingCartRepository.getReferenceById(id);
-        for(Cart cart : shoppingCart.getCartItems()) {
-            cartRepository.deleteById(cart.getId());
-        }
-        shoppingCart.setCustomer(null);
-        shoppingCart.getCartItems().clear();
-        shoppingCart.setTotalPrice(0);
-        shoppingCart.setTotalItems(0);
-        shoppingCartRepository.save(shoppingCart);
-    };
+        System.out.println("deleted shoppingcart with id: " + id);
+        shoppingCartRepository.deleteShoppingCartById(id);
+    }
 
     private Cart find(Set<Cart> cartItems, long productId) {
-        if(cartItems == null) {
+        if (cartItems == null) {
             return null;
         }
         Cart cartItem = null;
-        for(Cart cart : cartItems) {
-            if(cart.getProduct().getId() == productId) {
+        for (Cart cart : cartItems) {
+            if (cart.getProduct().getId() == productId) {
                 cartItem = cart;
             }
         }
         return cartItem;
     }
+
     private Product transfer(ProductDto productDto) {
         Product product = new Product();
         product.setId(productDto.getId());
@@ -147,7 +140,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private double totalPrice(Set<Cart> cartItem) {
         double total = 0.0;
-        for(Cart item : cartItem) {
+        for (Cart item : cartItem) {
             total += item.getUnitPrice() * item.getQuantity();
         }
         return total;
@@ -155,7 +148,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private int totalItem(Set<Cart> cartItem) {
         int total = 0;
-        for(Cart item : cartItem) {
+        for (Cart item : cartItem) {
             total += item.getQuantity();
         }
         return total;
@@ -163,9 +156,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private int countItem(Set<Cart> cartItem) {
         int total = 0;
-        for(Cart item : cartItem) {
+        for (Cart item : cartItem) {
 //            total += item.;
         }
         return total;
+    }
+
+    @Override
+    public Cart IncreaseProducts(Cart cart) {
+        Product product = new Product();
+        if (cart.getQuantity() <= product.getCurrentQuantity())
+            cart.setQuantity(cart.getQuantity() + 1);
+        return cartRepository.save(cart);
     }
 }

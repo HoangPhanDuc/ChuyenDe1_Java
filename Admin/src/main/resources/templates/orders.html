@@ -30,8 +30,8 @@
                     <thead>
                     <tr>
                         <th class="order-date">Order Date</th>
-                        <th>Delivery Date</th>
                         <th class="price-pr">Order Status</th>
+                        <th class="quantity-orders">Quantity</th>
                         <th class="quantity-box">Total Price</th>
                         <th class="total-pr">Payment Method</th>
                         <th class="user-name">User name</th>
@@ -43,22 +43,17 @@
                     <tbody>
                     <tr th:each="order : ${orders}">
                         <td class="order-date">
-                            <span><b>[(${order.orderDate})]</b></span>
-                        </td>
-                        <td class="name-pr" th:if="${order.accept == true}">
-                            <a href="#">
-                                [(${order.deliveryDate})]
-                            </a>
+                            <p th:text="${order.orderDate}"></p>
                         </td>
                         <td class="price-pr">
                             <p th:text="${order.orderStatus}"></p>
                         </td>
                         <td class="quantity-box" th:text="${order.quantity}"></td>
                         <td class="total-pr">
-                            <p style="color: red">$ [(${order.totalPrice})]</p>
+                            <p style="color: blue" th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'POINT', 0, 'COMMA') + 'đ'}"></p>
                         </td>
                         <td class="total-pr" style="color: black">
-                            <span></span>[(${order.paymentMethod})]</span>
+                            <p style="color: red" th:text="${order.paymentMethod}"></p>
                         </td>
                         <td class="name-user">
                             <p th:text="${order.customer.username}"></p>
@@ -69,10 +64,10 @@
                         <td class="address">
                             <p th:text="${order.customer.address}"></p>
                         </td>
-                        <td>
-                            <a th:if="${order.accept} == false" th:href="@{'/accept-order/' + ${order.id}}"
-                               class="btn btn-primary">Accept</a>
-                            <a th:if="${order.accept} != false" th:href="@{'/cancel-order/' + ${order.id}}"
+                        <td class="d-flex">
+                            <a th:if="${order.orderStatus} != 'Processing'" th:href="@{'/accept-order/' + ${order.id}}"
+                               class="btn btn-primary mr-1">Accept</a>
+                            <a th:if="${order.orderStatus} != 'Canceled'" th:href="@{'/cancel-order/' + ${order.id}}"
                                class="btn btn-danger">Cancel</a>
                         </td>
                     </tr>

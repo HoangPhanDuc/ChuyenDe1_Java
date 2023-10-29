@@ -90,7 +90,7 @@ public class CartController {
         try {
             ProductDto productDto = productService.getReferenceById(productId);
             String username = principal.getName();
-            System.out.println(username + "Deleted Item");
+            System.out.println(username + "Deleted Item" + productId);
             ShoppingCart shoppingCart = cartService.removeItemFromCart(productDto, username);
             model.addAttribute("shoppingCart", shoppingCart);
             System.out.println(shoppingCart);
@@ -100,4 +100,10 @@ public class CartController {
         }
         return "redirect:/cart";
     }
+
+//    @PutMapping("/updateQuantity")
+//    public String updateQuantityInc(@RequestParam("quantity") int quantity, Model model) {
+//        cartService.IncreaseProducts()
+//        return "redirect:/cart";
+//    }
 }

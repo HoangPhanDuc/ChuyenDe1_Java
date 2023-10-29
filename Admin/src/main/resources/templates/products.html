@@ -44,7 +44,7 @@
                 <div th:if="${failed}" class="text-center alert alert-danger">
                     <p th:text="${failed}"></p>
                 </div>
-                <table class="table table-bordered" th:if="${size > 0}">
+                <table class="table table-bordered mt-2" th:if="${size > 0}">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -60,31 +60,22 @@
                     <tr th:each="product : ${products}">
                         <th scope="row" th:text="${product.name}"></th>
                         <td th:text="${product.category.name}"></td>
-                        <td th:text="${#numbers.formatDecimal(product.costPrice, 0, 'POINT', 0, 'COMMA')}"></td>
-                        <td th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'COMMA')}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.costPrice, 0, 'POINT', 0, 'COMMA') + 'đ'}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'COMMA') + 'đ'}"></td>
                         <td th:text="${product.currentQuantity}"></td>
                         <td>
                             <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
                                  th:src="'data:image/jpeg;base64,' + ${product.image}">
                         </td>
 
-                        <td>
-                            <a th:href="@{'/update-product/' + ${product.id}}" class="btn btn-primary">
+                        <td class="d-flex">
+                            <a th:href="@{'/update-product/' + ${product.id}}" class="btn btn-primary mr-1">
                                 Update
                             </a>
-                            <a
-                                    th:href="@{'/deleted-product/' + ${product.id}}"
-                                    class="btn btn-danger">Delete
+                            <a th:href="@{'/deleted-product/' + ${product.id}}"
+                               class="btn btn-danger">Delete
                             </a>
                         </td>
-
-                        <!--                        <td>-->
-                        <!--                            <a-->
-                        <!--                               th:href="@{'/deleted-product/' + ${product.id}}"-->
-                        <!--                               class="btn btn-danger">Delete-->
-                        <!--                            </a>-->
-                        <!--                        </td>-->
-
                     </tr>
                     </tbody>
                 </table>

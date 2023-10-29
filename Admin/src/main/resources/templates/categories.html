@@ -38,7 +38,6 @@
                 <tr>
                     <th scope="col">Category Index</th>
                     <th scope="col">Category Name</th>
-                    <th scope="col">Update Name</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -46,13 +45,11 @@
                 <tr th:each="category : ${categories}">
                     <th scope="row" th:text="${category.id}"></th>
                     <td th:text="${category.name}"></td>
-                    <td>
+                    <td class="d-flex">
                         <a id="editButton"
                            th:href="@{'/findById/' + ${category.id}}"
-                           class="btn btn-primary">Update
+                           class="btn btn-primary mr-2">Update
                         </a>
-                    </td>
-                    <td>
                         <a class="btn btn-danger" th:href="@{'/delete-category/' + ${category.id}}">
                             Delete
                         </a>

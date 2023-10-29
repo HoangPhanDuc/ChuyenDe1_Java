@@ -11,4 +11,5 @@ public interface ShoppingCartService {
 
     void deletedCartById(Long id);
 
+    Cart IncreaseProducts(Cart cart);
 }

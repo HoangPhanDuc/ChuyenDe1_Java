@@ -57,6 +57,7 @@ public class OrderServiceImpl implements OrderService {
     public Order acceptOrder(Long id, Order order) {
         order = orderRepository.getReferenceById(id);
         order.setAccept(true);
+        order.setOrderStatus("Processing");
         System.out.println(order.isAccept());
         System.out.println(id);
         return orderRepository.save(order);
@@ -66,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
     public Order cancelOrder(Long id, Order order) {
         order = orderRepository.getReferenceById(id);
         order.setAccept(false);
+        order.setOrderStatus("Canceled");
         return orderRepository.save(order);
     }
 
