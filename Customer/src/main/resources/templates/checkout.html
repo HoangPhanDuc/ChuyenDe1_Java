@@ -66,6 +66,7 @@
                                                    required
                                                    class="check-shipping-info"
                                                    id="phone"
+                                                   name="phone"
                                                    th:field="*{phone}"
                                                    placeholder="Số điện thoại"
                                             >
@@ -82,6 +83,7 @@
                                                    required
                                                    class="check-shipping-info"
                                                    id="address"
+                                                   name="address"
                                                    th:field="*{address}"
                                                    placeholder="Địa chỉ người nhận"
                                             >
@@ -188,7 +190,6 @@
                                                     class="checkout-original-price"
                                                     th:text="${item.product.salePrice}"
                                             >
-
                                             </div>
                                         </div>
                                         <div
@@ -252,7 +253,7 @@
     </div>
 </div>
 <!-- End Cart -->
-<footer th:fragment="~{footer}"></footer>
+<footer th:replace="~{fragments::footer}"></footer>
 
 <div th:replace="~{fragments::script}"></div>
 </body>

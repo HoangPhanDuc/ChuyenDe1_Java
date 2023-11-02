@@ -1,5 +1,7 @@
 package com.ecommerce.library.service;
 
+import com.ecommerce.library.dto.ShoppingCartDto;
+import com.ecommerce.library.model.Cart;
 import com.ecommerce.library.model.Order;
 import com.ecommerce.library.model.ShoppingCart;
 import org.springframework.stereotype.Service;

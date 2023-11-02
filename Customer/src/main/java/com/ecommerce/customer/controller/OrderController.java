@@ -1,11 +1,13 @@
 package com.ecommerce.customer.controller;
 
 import com.ecommerce.library.dto.CustomerDto;
+import com.ecommerce.library.model.Cart;
 import com.ecommerce.library.model.Customer;
 import com.ecommerce.library.model.Order;
 import com.ecommerce.library.model.ShoppingCart;
 import com.ecommerce.library.service.CustomerService;
 import com.ecommerce.library.service.OrderService;
+import com.ecommerce.library.service.ShoppingCartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,18 +26,24 @@ public class OrderController {
 
     private final CustomerService customerService;
     private final OrderService orderService;
+    private final ShoppingCartService shoppingCartService;
 
     @GetMapping("/check-out")
     public String checkOut (Model model, Principal principal) {
         CustomerDto customer = customerService.getCustomer(principal.getName());
-            System.out.println("customer info " + customer);
-            ShoppingCart cart = customerService.findByUsername(principal.getName()).getCart();
-            model.addAttribute("customer", customer);
-            model.addAttribute("title", "Checkout");
-            model.addAttribute("page", "Checkout");
-            model.addAttribute("shoppingCart", cart);
-            model.addAttribute("grandTotal", cart.getTotalItems());
-            return "checkout";
+
+        System.out.println("customer info checkout: " + customer);
+
+        ShoppingCart cart = customerService.findByUsername(principal.getName()).getCart();
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("shoppingCart", cart);
+        model.addAttribute("grandTotal", cart.getTotalItems());
+
+        model.addAttribute("title", "Checkout");
+        model.addAttribute("page", "Checkout");
+
+        return "checkout";
     };
 
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
@@ -45,18 +53,50 @@ public class OrderController {
             HttpSession session,
             @RequestParam("address") String address,
             @RequestParam("phone") String phone) {
+
+        ShoppingCart shoppingCart = customerService.findByUsername(principal.getName()).getCart();
         Customer customer = customerService.findByUsername(principal.getName());
         CustomerDto customerDto = customerService.getCustomer(principal.getName());
+        ShoppingCart cart = customer.getCart();
+
         customerDto.setAddress(address);
         customerDto.setPhone(phone);
-        ShoppingCart cart = customer.getCart();
+
         Order order = orderService.save(cart);
         customerService.update(customerDto);
+
+        System.out.println("Add Order Success: " + order);
         session.removeAttribute("totalItems");
+
         model.addAttribute("order", order);
+
+        System.out.println("All Items Cart in OrderController: " + shoppingCart.getCartItems());
+        System.out.println("Cart Size in OrderController: " + shoppingCart.getCartItems().size());
+
         model.addAttribute("title", "Order Detail");
         model.addAttribute("page", "Order Detail");
         model.addAttribute("success", "Add order Successfully");
+
         return "order-detail";
-    }
+    };
+    
+    @GetMapping("/orders")
+    public String getOrders(Model model, Principal principal) {
+        if(principal == null) {
+            return "redirect:/login";
+        } else {
+            Customer customer = customerService.findByUsername(principal.getName());
+
+            List<Order> orderList = customer.getOrders();
+
+            model.addAttribute("orders", orderList);
+            model.addAttribute("customer", customer);
+
+            model.addAttribute("title", "Orders");
+
+            return "order";
+        }
+    };
+
+
 };

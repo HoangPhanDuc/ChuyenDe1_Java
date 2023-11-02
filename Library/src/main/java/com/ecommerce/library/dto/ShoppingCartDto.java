@@ -1,5 +1,6 @@
 package com.ecommerce.library.dto;
 
+import com.ecommerce.library.model.Cart;
 import com.ecommerce.library.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +23,4 @@ public class ShoppingCartDto {
     private int totalItems;
 
     private Set<CartDto> cartItems;
-
 }

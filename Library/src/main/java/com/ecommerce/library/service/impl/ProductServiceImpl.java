@@ -6,8 +6,10 @@ import com.ecommerce.library.model.Product;
 import com.ecommerce.library.repository.ProductRepository;
 import com.ecommerce.library.service.ProductService;
 import com.ecommerce.library.utils.ImageUpload;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -16,13 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ImageUpload imageUpload;
+    private final ImageUpload imageUpload;
 
     @Override
     public List<Product> findAll() {

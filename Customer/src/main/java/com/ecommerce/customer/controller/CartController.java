@@ -1,6 +1,7 @@
 package com.ecommerce.customer.controller;
 
 import com.ecommerce.library.dto.ProductDto;
+import com.ecommerce.library.dto.ShoppingCartDto;
 import com.ecommerce.library.model.Customer;
 import com.ecommerce.library.model.Product;
 import com.ecommerce.library.model.ShoppingCart;
@@ -26,29 +27,31 @@ public class CartController {
     private final CustomerService customerService;
 
     @GetMapping("/cart")
-    public String cart(Model model, Principal principal) {
+    public String cart(Model model, Principal principal, HttpSession session) {
         if(principal == null) {
             return "redirect:/login";
         } else {
             Customer customer = customerService.findByUsername(principal.getName());
             ShoppingCart cart = customer.getCart();
-            if(cart == null) {
+
+            if(cart.getCartItems().isEmpty()) {
                 System.out.println("Cart Null");
                 model.addAttribute("check", true);
-            }
-            if(cart != null ) {
+            } else {
                 System.out.println("Cart Size " + cart.getCartItems().size());
-                System.out.println("Cart Info " + cart);
+                System.out.println("Cart Info: " + cart);
+                System.out.println("Cart Items: " + cart.getCartItems());
                 model.addAttribute("grandTotal", cart.getTotalPrice());
             }
 
             model.addAttribute("shoppingCart", cart);
             model.addAttribute("title", "Cart");
+            session.setAttribute("totalItems", cart.getTotalItems());
             return "cart";
         }
     }
 
-    @PostMapping("/add-to-cart")
+    @RequestMapping(value = "/add-to-cart", method = RequestMethod.POST, params = "action=add")
     public String addItemToCart(@RequestParam("id") Long id,
                                 @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
                                 HttpServletRequest request,
@@ -61,9 +64,12 @@ public class CartController {
         } else {
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
+//            ShoppingCartDto shoppingCart = cartService.addItemSession(productDto, shoppingCartDto, quantity);
             session.setAttribute("totalItems", shoppingCart.getTotalItems());
 
             model.addAttribute("shoppingCart", shoppingCart);
+
+            System.out.println("Cart Product: " + shoppingCart.getCartItems());
         }
         return "redirect:" + request.getHeader("Referer");
     };
@@ -77,7 +83,7 @@ public class CartController {
         ProductDto productDto = productService.getReferenceById(productId);
         String username = principal.getName();
         ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
-        session.setAttribute("totalItems", shoppingCart.getTotalItems());
+//        session.setAttribute("totalItems", shoppingCart.getTotalItems());
 
         model.addAttribute("shoppingCart", shoppingCart);
         return "checkout";
@@ -90,10 +96,10 @@ public class CartController {
         try {
             ProductDto productDto = productService.getReferenceById(productId);
             String username = principal.getName();
-            System.out.println(username + "Deleted Item");
+            System.out.println(username + " Deleted Item");
             ShoppingCart shoppingCart = cartService.removeItemFromCart(productDto, username);
             model.addAttribute("shoppingCart", shoppingCart);
-            System.out.println(shoppingCart);
+
             return "redirect:/cart";
         } catch(Exception ex) {
             ex.printStackTrace();

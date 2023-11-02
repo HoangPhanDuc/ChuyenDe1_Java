@@ -28,8 +28,6 @@ public class AuthController {
     public String login(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-//        if(authentication.getAuthorities().stream().anyMatch())
-
         model.addAttribute("title", "Login Page");
         return "login";
     }

@@ -19,15 +19,18 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
     private ShoppingCart cart;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
+
     private int quantity;
+
     private double unitPrice;
+
     private double salePrice;
 
     @Override
@@ -39,7 +42,6 @@ public class Cart {
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", salePrice=" + salePrice +
-                ", totalPrice=" +
                 '}';
     }
 }
