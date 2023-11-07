@@ -30,6 +30,7 @@ public class ShoppingCart {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private Set<Cart> cartItems;
 
+
     public ShoppingCart() {
         this.cartItems = new HashSet<>();
         this.totalItems = 0;

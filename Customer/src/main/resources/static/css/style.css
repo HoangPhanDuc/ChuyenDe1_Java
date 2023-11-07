@@ -3523,11 +3523,19 @@ btn {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     border: 1px solid #c1c1c1;
     border-radius: 4px;
     height: 32px;
 }
+
+.customize-order-view {
+    position: absolute;
+    right: 175%;
+    transform: translate(-170%, -10%);
+    border: none !important;
+}
+
 
 .quantity-box-block a {
     display: flex;
@@ -3838,7 +3846,7 @@ btn {
 }
 
 .group-product-info form {
-    flex-basis: 40%;
+    flex-basis: 50%;
 }
 
 .product-name-text {
@@ -3899,9 +3907,16 @@ btn {
     display: flex;
 }
 
+.info-item-order {
+    position: absolute;
+    top: 15%;
+    right: 15%;
+    transform: translate(10%, 10%);
+}
+
 .form-cart {
     display: flex;
-    flex: 50%;
+    flex-basis: 50%;
     align-items: center;
     justify-content: space-between;
 }

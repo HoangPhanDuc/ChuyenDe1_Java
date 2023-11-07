@@ -28,7 +28,7 @@
 <div class="cart-box-main">
     <div class="container">
         <div class="cart-ui-content row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="margin-bottom: 12px">
                 <div th:if="success" class="text-center alert alert-success">
                     <p th:text="${success}"></p>
                 </div>
@@ -43,13 +43,16 @@
                             </div>
                             <div></div>
                         </div>
-                        <div class="product-cart" >
-                            <div class="product-cart-item" th:each="orderdetail : ${order.orderDetailList}">
-                                <div class="img-product-cart">
+                        <div class="product-cart position-relative">
+                            <div class="product-cart-item"
+                                 th:each="orderdetail : ${order.orderDetailList}"
+                            >
+                                <div class="img-product-cart" >
                                     <a>
                                         <img th:src="'data:image/jepg;base64,' + ${orderdetail.product.image}" alt="">
                                     </a>
                                 </div>
+
                                 <div class="group-product-info">
                                     <div class="info-product-cart info-order-detail">
                                         <div>
@@ -75,13 +78,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form>
+                                    <form class="form-cart" style="flex-basis: 45%">
                                         <div class="number-product-cart">
                                             <div class="product-view-quantity-box order-view-quantity-box">
-                                                <div class="quantity-box-block justify-content-center">
+                                                <div class="quantity-box-block border-0" >
                                                     <div class="input-quantity"
                                                          th:align="center"
-                                                         th:text="${order.quantity}"
+                                                         th:text="${orderdetail.quantity}"
                                                     >
                                                     </div>
                                                 </div>
@@ -89,7 +92,7 @@
                                             <div class="cart-price-total order-price-total">
                                                 <span class="cart-price">
                                                     <span class="price"
-                                                          th:text="${order.totalPrice} + ' đ'"
+                                                          th:text="${orderdetail.quantity * orderdetail.unitPrice} + ' đ'"
                                                     >
                                                     </span>
                                                 </span>
@@ -102,6 +105,26 @@
                     </div>
                 </div>
             </div>
+            <div></div>
+            <div></div>
+            <div class="block-total-cart col-sm-4" >
+                <div class="total-cart-container">
+                    <div class="cash-total">
+                        <div class="total-left"></div>
+                        <div class="total-right">
+                            <span class="price" ></span>
+                        </div>
+                    </div>
+                    <div class="border-product"></div>
+                    <div class="cash-total title-final-total">
+                        <div class="total-left">Tổng Số Tiền (gồm VAT)</div>
+                        <div class="total-right">
+                            <span class="price" th:text="${order.totalPrice+ 19} + ' đ'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

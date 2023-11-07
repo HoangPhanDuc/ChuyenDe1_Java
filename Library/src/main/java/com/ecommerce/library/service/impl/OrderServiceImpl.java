@@ -44,18 +44,12 @@ public class OrderServiceImpl implements OrderService {
         for(Cart cart : shoppingCart.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrder(order);
-//            ProductDto productDto = new ProductDto();
-//            productDto.setId(cartDto.getProduct().getId());
-//            productDto.setName(cartDto.getProduct().getName());
-//            productDto.setDescription(cartDto.getProduct().getDescription());
-//            productDto.setCostPrice(cartDto.getProduct().getCostPrice());
-//            productDto.setSalePrice(cartDto.getProduct().getSalePrice());
-//            productDto.setCurrentQuantity(cartDto.getProduct().getCurrentQuantity());
-//            productDto.setCategory(cartDto.getProduct().getCategory());
-//            productDto.setImage(cartDto.getProduct().getImage());
-
+            orderDetail.setQuantity(cart.getQuantity());
+            orderDetail.setUnitPrice(cart.getUnitPrice());
             orderDetail.setProduct(cart.getProduct());
+
             orderDetailRepository.save(orderDetail);
+
             orderDetailList.add(orderDetail);
         }
 

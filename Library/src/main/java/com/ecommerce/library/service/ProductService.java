@@ -19,6 +19,7 @@ public interface ProductService {
     Product update(MultipartFile imageProduct, ProductDto productDto);
 
     ProductDto getReferenceById(Long id);
+
     Optional<Product> findById(Long id);
 
     void deleteById(Long id);

@@ -11,6 +11,7 @@ import com.ecommerce.library.repository.CartRepository;
 import com.ecommerce.library.repository.ShoppingCartRepository;
 import com.ecommerce.library.service.CustomerService;
 import com.ecommerce.library.service.ShoppingCartService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -217,9 +218,30 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public void deletedCartById(Long id) {
         shoppingCartRepository.deleteShoppingCartById(id);
     }
+
+    @Override
+    @Transactional
+    public ShoppingCart updateCart(ProductDto productDto, int quantity, String username) {
+        Customer customer = customerService.findByUsername(username);
+        ShoppingCart shoppingCart = customer.getCart();
+        Set<Cart> cartItemList = shoppingCart.getCartItems();
+        Cart item = find(cartItemList, productDto.getId());
+        int itemQuantity = quantity;
+
+        item.setQuantity(itemQuantity);
+        cartRepository.save(item);
+        shoppingCart.setCartItems(cartItemList);
+        int totalItem = totalItem(cartItemList);
+        double totalPrice = totalPrice(cartItemList);
+        shoppingCart.setTotalPrice(totalPrice);
+        shoppingCart.setTotalItems(totalItem);
+        return shoppingCartRepository.save(shoppingCart);
+    }
+
 
     private Cart find(Set<Cart> cartItems, long productId) {
         if(cartItems == null) {

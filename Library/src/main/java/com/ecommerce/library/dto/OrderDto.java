@@ -5,20 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartDto {
+public class OrderDto {
     private Long id;
 
     private ShoppingCartDto cart;
 
-    private ProductDto product;
+    private CustomerDto customerDto;
 
-    private int quantity;
-
-    private double unitPrice;
-
-    private double salePrice;
+    private double totalPrice;
 }

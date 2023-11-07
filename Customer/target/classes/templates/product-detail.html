@@ -30,6 +30,9 @@
         <div th:if="${param.success}" class="alert alert-danger text-center" id="addMessage" style="display:none;">
             <p>thêm sản phẩm thành công</p>
         </div>
+        <div id="quantityAlert" class="alert alert-warning text-center" style="display: none;">
+            <p>Số lượng sản phẩm đã vượt quá số lượng có sẵn trong kho!</p>
+        </div>
         <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-6">
                 <div class="book-left">
@@ -72,6 +75,7 @@
                     </div>
                     <div class="pro-view-add-box">
                         <form th:action="@{/add-to-cart}" method="post" id="addToCartForm">
+                            <input type="hidden" name="id" th:value="${productDetail.id}"/>
                             <div class="cart-hol">
                                 <div class="catalog-pro-details">
                                     <div class="pro-view-quantity">
@@ -127,41 +131,6 @@
             </div>
         </div>
     </div>
-
-<!--    <div class="row my-5">-->
-<!--        <div class="col-lg-12">-->
-<!--            <div class="title-all text-center">-->
-<!--                <h1>Related Products</h1>-->
-<!--            </div>-->
-<!--            <div class="featured-products-box owl-carousel owl-theme">-->
-<!--                <div class="item" th:each="product : ${products}">-->
-<!--                    <form method="post">-->
-<!--                        <div class="products-single fix">-->
-<!--                            <div class="box-img-hover">-->
-<!--                                <img th:src="*{'data:image/jpeg;base64,' + {product.image}}" class="img-fluid"-->
-<!--                                     alt="Image">-->
-<!--                                <div class="mask-icon">-->
-<!--                                    <ul>-->
-<!--                                        <li><a th:href="@{/product-detail/{id}(id = ${product.id})}"-->
-<!--                                               data-toggle="tooltip"-->
-<!--                                               data-placement="right"-->
-<!--                                               title="View"><i class="fas fa-eye"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                    <input type="hidden" th:value="${product.id}" name="id" class="form-control">-->
-<!--                                    <input type="submit" class="btn hvr-hover" value="Add to cart">-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="why-text">-->
-<!--                                <h4 th:text="${product.name}"></h4>-->
-<!--                                <h5 th:text="'$' + ${product.costPrice}"></h5>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
 </div>
 </div>
 
@@ -173,30 +142,32 @@
 
 <div th:replace="~{fragments::script}"></div>
 
-<!--<script th:inline="javascript">-->
-<!--    var form = document.getElementById('addToCartForm');-->
-<!--    form.addEventListener('submit', function (event) {-->
-<!--        console.log(form);-->
-<!--        event.preventDefault();-->
-<!--        var formData = new FormData(form);-->
-<!--        fetch(form.action, {-->
-<!--            method: form.method,-->
-<!--            body: formData-->
-<!--        })-->
-<!--            .then(response => {-->
-<!--                if (response.ok) {-->
-<!--                    console.log('add sucess', formData);-->
-<!--                    document.getElementById('addMessage').style.display = 'block';-->
-<!--                } else {-->
-<!--                    console.log('Error')-->
-<!--                    alert('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');-->
-<!--                }-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('Có lỗi xảy ra:', error);-->
-<!--            });-->
-<!--    });-->
-<!--</script>-->
+<script th:inline="javascript">
+    $(document).ready(function() {
+        var maxQuantity = 10;
+        var quantityAlert = $("#quantityAlert");
+
+        $(".btn-subtract-quantity").click(function() {
+            var inputField = $(this).siblings(".input-quantity");
+            var currentValue = parseInt(inputField.val());
+            if (currentValue > 1) {
+                inputField.val(currentValue - 1);
+            }
+        });
+
+        $(".btn-add-quantity").click(function() {
+            var inputField = $(this).siblings(".input-quantity");
+            var currentValue = parseInt(inputField.val());
+            if (currentValue < maxQuantity) {
+                inputField.val(currentValue + 1);
+            } else {
+                quantityAlert.show();
+            }
+        });
+    });
+</script>
+
+
 </body>
 
 </html>

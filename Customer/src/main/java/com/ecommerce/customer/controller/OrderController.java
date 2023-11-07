@@ -54,7 +54,6 @@ public class OrderController {
             @RequestParam("address") String address,
             @RequestParam("phone") String phone) {
 
-        ShoppingCart shoppingCart = customerService.findByUsername(principal.getName()).getCart();
         Customer customer = customerService.findByUsername(principal.getName());
         CustomerDto customerDto = customerService.getCustomer(principal.getName());
         ShoppingCart cart = customer.getCart();
@@ -66,12 +65,11 @@ public class OrderController {
         customerService.update(customerDto);
 
         System.out.println("Add Order Success: " + order);
+        System.out.println("Cart Items in orderController: " + cart.getCartItems());
+
         session.removeAttribute("totalItems");
 
         model.addAttribute("order", order);
-
-        System.out.println("All Items Cart in OrderController: " + shoppingCart.getCartItems());
-        System.out.println("Cart Size in OrderController: " + shoppingCart.getCartItems().size());
 
         model.addAttribute("title", "Order Detail");
         model.addAttribute("page", "Order Detail");
@@ -98,5 +96,24 @@ public class OrderController {
         }
     };
 
+    @GetMapping("/ordersItem")
+    public String getOrdersItem(Model model, Principal principal) {
+        if(principal == null) {
+            return "redirect:/login";
+        } else {
+            Customer customer = customerService.findByUsername(principal.getName());
 
+            List<Order> orderList = customer.getOrders();
+
+            System.out.println("Order List in orderController: " + orderList);
+            System.out.println("Customer Info in orderController: " + customer.getUsername());
+
+            model.addAttribute("orders", orderList);
+            model.addAttribute("customer", customer);
+
+            model.addAttribute("title", "Order-Items");
+
+            return "order-items";
+        }
+    };
 };

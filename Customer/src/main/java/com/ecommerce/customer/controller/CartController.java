@@ -34,7 +34,7 @@ public class CartController {
             Customer customer = customerService.findByUsername(principal.getName());
             ShoppingCart cart = customer.getCart();
 
-            if(cart.getCartItems().isEmpty()) {
+            if(cart == null) {
                 System.out.println("Cart Null");
                 model.addAttribute("check", true);
             } else {
@@ -43,10 +43,8 @@ public class CartController {
                 System.out.println("Cart Items: " + cart.getCartItems());
                 model.addAttribute("grandTotal", cart.getTotalPrice());
             }
-
             model.addAttribute("shoppingCart", cart);
             model.addAttribute("title", "Cart");
-            session.setAttribute("totalItems", cart.getTotalItems());
             return "cart";
         }
     }
@@ -64,7 +62,6 @@ public class CartController {
         } else {
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
-//            ShoppingCartDto shoppingCart = cartService.addItemSession(productDto, shoppingCartDto, quantity);
             session.setAttribute("totalItems", shoppingCart.getTotalItems());
 
             model.addAttribute("shoppingCart", shoppingCart);
@@ -83,10 +80,30 @@ public class CartController {
         ProductDto productDto = productService.getReferenceById(productId);
         String username = principal.getName();
         ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
-//        session.setAttribute("totalItems", shoppingCart.getTotalItems());
 
         model.addAttribute("shoppingCart", shoppingCart);
         return "checkout";
+    }
+
+    @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=update")
+    public String updateCart(@RequestParam("id") Long id,
+                             @RequestParam("quantity") int quantity,
+                             Model model,
+                             Principal principal,
+                             HttpSession session) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        ProductDto productDto = productService.getReferenceById(id);
+        String username = principal.getName();
+
+        ShoppingCart shoppingCart = cartService.updateCart(productDto, quantity, username);
+        model.addAttribute("shoppingCart", shoppingCart);
+        System.out.println("Shopping Cart in CartController: " + shoppingCart);
+        session.setAttribute("totalItems", shoppingCart.getTotalItems());
+        return "redirect:/cart";
+
     }
 
     @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")

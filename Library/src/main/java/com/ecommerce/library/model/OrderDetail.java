@@ -16,6 +16,10 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private Long id;
 
+    private int quantity;
+
+    private double unitPrice;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Order order;

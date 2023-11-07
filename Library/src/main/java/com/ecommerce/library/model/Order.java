@@ -46,6 +46,7 @@ public class Order {
                 "id=" + id +
                 ", orderDate=" + orderDate +
                 ", deliveryDate=" + deliveryDate +
+                ", quantityTotal=" + quantity +
                 ", totalPrice=" + totalPrice +
                 ", paymentMethod=" + paymentMethod +
                 ", customer=" +customer.getUsername() +
