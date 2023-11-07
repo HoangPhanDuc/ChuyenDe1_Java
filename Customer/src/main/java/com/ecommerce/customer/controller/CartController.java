@@ -100,10 +100,4 @@ public class CartController {
         }
         return "redirect:/cart";
     }
-
-//    @PutMapping("/updateQuantity")
-//    public String updateQuantityInc(@RequestParam("quantity") int quantity, Model model) {
-//        cartService.IncreaseProducts()
-//        return "redirect:/cart";
-//    }
 }
