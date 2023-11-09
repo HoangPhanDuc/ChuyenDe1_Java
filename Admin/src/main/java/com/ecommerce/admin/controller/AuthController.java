@@ -91,6 +91,5 @@ public class AuthController {
             model.addAttribute("errors", "The server has been wrong!");
         }
         return "register";
-
     }
 }

@@ -18,10 +18,6 @@ public class Admin {
     @Column(name = "admin_id")
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
-
     private String username;
 
     private String password;

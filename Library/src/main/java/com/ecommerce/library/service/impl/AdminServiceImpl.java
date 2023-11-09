@@ -30,8 +30,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin save(AdminDto adminDto) {
         Admin admin = new Admin();
-        admin.setFirstName(adminDto.getFirstName());
-        admin.setLastName(adminDto.getLastName());
         admin.setUsername(adminDto.getUsername());
         admin.setPassword((adminDto.getPassword()));
         admin.setRoles(Arrays.asList(roleRepository.findByName("ADMIN")));

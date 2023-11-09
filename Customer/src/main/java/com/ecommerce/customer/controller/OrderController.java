@@ -26,7 +26,6 @@ public class OrderController {
 
     private final CustomerService customerService;
     private final OrderService orderService;
-    private final ShoppingCartService shoppingCartService;
 
     @GetMapping("/check-out")
     public String checkOut (Model model, Principal principal) {

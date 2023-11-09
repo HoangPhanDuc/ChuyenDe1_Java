@@ -1,5 +1,6 @@
 package com.ecommerce.admin.controller;
 
+import com.ecommerce.library.dto.CategoryDto;
 import com.ecommerce.library.dto.ProductDto;
 import com.ecommerce.library.model.Category;
 import com.ecommerce.library.model.Product;
@@ -55,35 +56,24 @@ public class ProductController {
         return "redirect:/products";
     }
 
-//    @GetMapping("/products/{pageNo}")
-//    public String allProducts(@PathVariable("pageNo") int pageNo, Model model, Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/login";
-//        }
-//        Page<ProductDto> products = productService.getAllProducts(pageNo);
-//        model.addAttribute("title", "Manage Products");
-//        model.addAttribute("size", products.getSize());
-//        model.addAttribute("products", products);
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", products.getTotalPages());
-//        return "products";
-//    }
-//
-//    @GetMapping("/search-products/{pageNo}")
-//    public String searchProduct(@PathVariable("pageNo") int pageNo,
-//                                @RequestParam(value = "keyword") String keyword,
-//                                Model model
-//    ) {
-//        Page<ProductDto> products = productService.searchProducts(pageNo, keyword);
-//        model.addAttribute("title", "Result Search Products");
-//        model.addAttribute("size", products.getSize());
-//        model.addAttribute("products", products);
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", products.getTotalPages());
-//        return "product-result";
-//
-//    }
-//
+    @GetMapping("/search-products")
+    public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
+        try {
+            List<ProductDto> productDtos = productService.searchProducts(keyword);
+
+            model.addAttribute("title", "Search Product");
+            model.addAttribute("page", "Search Result");
+            model.addAttribute("products", productDtos);
+            model.addAttribute("size", productDtos.size());
+
+            System.out.println("product size in ProductController Admin: " + productDtos.size());
+        } catch (Exception ex) {
+            System.out.println("Ngu" + ex);
+            ex.printStackTrace();
+        }
+        return "products-result";
+    }
+
     @GetMapping("/add-product")
     public String addProductPage(Model model) {
         model.addAttribute("title", "Add Product");

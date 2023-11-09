@@ -38,7 +38,6 @@
                                 <div class="col-md-4">
                                     <input id="product_name" th:field="*{name}" name="product_name"
                                            class="form-control input-md" required="" type="text">
-
                                 </div>
 
                                 <label class="col-md-4 control-label" for="product_categories">PRODUCT CATEGORY</label>
@@ -51,14 +50,6 @@
                                                 th:text="${category.name}">
                                         </option>
                                     </select>
-
-                                    <!--                                    <select id="product_categories" name="product_categories" class="form-control">-->
-                                    <!--                                        <option th:value="null">-SELECT-</option>-->
-                                    <!--                                        <option th:each="category : ${categories}"-->
-                                    <!--                                                th:value="${category.id}"-->
-                                    <!--                                                th:text="${category.name}">-->
-                                    <!--                                        </option>-->
-                                    <!--                                    </select>-->
                                 </div>
 
                                 <label class="col-md-4 control-label" for="description">PRODUCT DESCRIPTION</label>

@@ -75,14 +75,13 @@ public class CartController {
     public String buyNow(@RequestParam("id") long productId,
                          @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
                          Model model,
-                         Principal principal,
-                         HttpSession session) {
+                         Principal principal) {
         ProductDto productDto = productService.getReferenceById(productId);
         String username = principal.getName();
         ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
 
         model.addAttribute("shoppingCart", shoppingCart);
-        return "checkout";
+        return "redirect:/cart";
     }
 
     @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=update")
@@ -103,7 +102,6 @@ public class CartController {
         System.out.println("Shopping Cart in CartController: " + shoppingCart);
         session.setAttribute("totalItems", shoppingCart.getTotalItems());
         return "redirect:/cart";
-
     }
 
     @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
